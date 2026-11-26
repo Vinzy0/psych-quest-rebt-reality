@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psych Quest: REBT &amp; Reality Therapy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#58CC02; --green-d:#58A700; --green-l:#D7FFB8; --green-b:#A5ED6E; --lime:#89E219;
+  --blue:#1CB0F6; --blue-d:#1899D6; --blue-l:#DDF4FF; --blue-b:#84D8FF;
+  --red:#FF4B4B; --red-d:#EA2B2B; --red-l:#FFDFE0; --red-b:#FFB2B2;
+  --gold:#FFC800; --gold-d:#E5A500; --orange:#FF9600; --orange-d:#CD7900;
+  --purple:#CE82FF; --purple-d:#A568CC;
+  --ink:#4B4B4B; --muted:#777777; --faint:#AFAFAF; --line:#E5E5E5; --snow:#F7F7F7;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:#fff;font-weight:700;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.hidden{display:none!important}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 24px;border-radius:16px;
+  font-weight:800;font-size:15px;letter-spacing:.8px;text-transform:uppercase;color:#fff;background:var(--green);
+  box-shadow:0 4px 0 var(--green-d);transition:filter .1s,transform .05s,box-shadow .05s;user-select:none}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--green-d)}
+.btn.blue{background:var(--blue);box-shadow:0 4px 0 var(--blue-d)}
+.btn.red{background:var(--red);box-shadow:0 4px 0 var(--red-d)}
+.btn.gold{background:var(--gold);box-shadow:0 4px 0 var(--gold-d)}
+.btn.ghost{background:#fff;color:var(--blue);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.ghost.gray{color:var(--muted)}
+.btn:disabled{background:var(--line);color:var(--faint);box-shadow:none;cursor:default;filter:none;transform:none}
+.btn.wide{width:100%}
+
+/* ---------- Top bar ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:2px solid var(--line)}
+.topbar-in{max-width:620px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+.course-chip{display:flex;align-items:center;gap:8px;font-weight:900;color:var(--ink);font-size:15px}
+.course-chip .flag{width:34px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--purple),var(--blue));display:grid;place-items:center;color:#fff;font-size:11px;font-weight:900;box-shadow:0 3px 0 var(--purple-d)}
+.stats{display:flex;align-items:center;gap:14px}
+.stat{display:flex;align-items:center;gap:5px;font-weight:800;font-size:16px}
+.stat svg{width:24px;height:24px}
+.stat.fire{color:var(--orange)} .stat.gem{color:var(--blue)} .stat.heart{color:var(--red)}
+.icon-btn{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:var(--faint)}
+.icon-btn:hover{background:var(--snow)}
+.icon-btn svg{width:22px;height:22px}
+
+/* ---------- Home ---------- */
+#home{max-width:620px;margin:0 auto;padding:18px 16px 120px}
+.hero{border:2px solid var(--line);border-radius:20px;padding:18px;display:flex;gap:16px;align-items:center;margin-bottom:22px}
+.hero .mascot-wrap{width:84px;flex:0 0 84px}
+.hero h1{font-size:20px;font-weight:900;line-height:1.2}
+.hero p{color:var(--muted);font-size:14px;margin-top:4px;font-weight:700}
+.hero .row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}
+.pill.gold{background:#FFF4CC;color:#B07D00}
+.pill.red{background:var(--red-l);color:var(--red-d)}
+.pill.green{background:var(--green-l);color:var(--green-d)}
+.pill.blue{background:var(--blue-l);color:var(--blue-d)}
+
+.unit{margin-bottom:26px}
+.unit-banner{border-radius:16px;padding:16px 18px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.unit-banner .u-label{font-size:13px;font-weight:900;opacity:.85;letter-spacing:.6px;text-transform:uppercase}
+.unit-banner .u-title{font-size:20px;font-weight:900;line-height:1.2;margin-top:2px}
+.guide-btn{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:14px;border:2px solid rgba(0,0,0,.15);
+  box-shadow:0 3px 0 rgba(0,0,0,.18);color:#fff;font-weight:900;font-size:13px;letter-spacing:.5px;text-transform:uppercase;background:rgba(255,255,255,.08)}
+.guide-btn:active{transform:translateY(3px);box-shadow:none}
+.guide-btn svg{width:20px;height:20px}
+
+.path{position:relative;display:flex;flex-direction:column;align-items:center;padding:28px 0 6px;gap:22px}
+.node-wrap{position:relative;display:flex;flex-direction:column;align-items:center;z-index:1}
+.node-wrap.open{z-index:15}
+.node{width:76px;height:70px;border-radius:50%;display:grid;place-items:center;position:relative;transition:transform .05s}
+.node svg{width:36px;height:36px}
+.node:active{transform:translateY(6px)}
+.node.done{background:var(--gold)!important;box-shadow:0 7px 0 var(--gold-d)!important}
+.node .ring{position:absolute;inset:-9px;border-radius:50%;border:6px solid var(--line)}
+.node.done .ring{border-color:#FFE27A}
+.node-label{margin-top:12px;font-size:13px;font-weight:800;color:var(--muted);text-align:center;max-width:150px;line-height:1.2}
+.start-bubble{position:absolute;top:-46px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:6px 12px;font-weight:900;font-size:14px;letter-spacing:.6px;
+  text-transform:uppercase;animation:bob 1.2s ease-in-out infinite;white-space:nowrap;z-index:2}
+.start-bubble::after{content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-right:2px solid var(--line);border-bottom:2px solid var(--line)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.popover{position:absolute;top:calc(100% + 10px);z-index:15;width:270px;border-radius:16px;padding:16px;color:#fff;animation:pop .15s ease-out}
+.popover::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(45deg);width:16px;height:16px;background:inherit}
+.popover h3{font-size:17px;font-weight:900;margin-bottom:4px}
+.popover p{font-size:14px;font-weight:700;opacity:.9;margin-bottom:12px}
+.popover .btn{width:100%;background:#fff;color:inherit;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+
+.boss{margin-top:8px;border:2px solid var(--line);border-radius:20px;padding:18px;display:flex;align-items:center;gap:16px}
+.boss .trophy{width:64px;height:64px;flex:0 0 64px;border-radius:18px;background:var(--gold);box-shadow:0 5px 0 var(--gold-d);display:grid;place-items:center}
+.boss .trophy svg{width:36px;height:36px}
+.boss h3{font-size:18px;font-weight:900}
+.boss p{font-size:14px;color:var(--muted);margin:2px 0 10px}
+
+.fab-mistakes{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;z-index:25;max-width:588px;width:calc(100% - 32px)}
+
+/* ---------- Lesson ---------- */
+#lesson{position:fixed;inset:0;background:#fff;z-index:40;display:flex;flex-direction:column}
+.l-head{max-width:1000px;width:100%;margin:0 auto;display:flex;align-items:center;gap:16px;padding:20px 16px 10px}
+.l-head .x{color:var(--faint);width:32px;height:32px;display:grid;place-items:center;border-radius:8px}
+.l-head .x:hover{background:var(--snow)}
+.l-head .x svg{width:22px;height:22px}
+.bar{flex:1;height:16px;background:var(--line);border-radius:99px;overflow:hidden;position:relative}
+.bar-fill{height:100%;background:var(--green);border-radius:99px;transition:width .4s cubic-bezier(.3,1.4,.6,1);position:relative;min-width:16px}
+.bar-fill::after{content:"";position:absolute;left:8px;right:8px;top:4px;height:4px;border-radius:99px;background:rgba(255,255,255,.3)}
+.l-hearts{display:flex;align-items:center;gap:5px;color:var(--red);font-weight:900;font-size:17px}
+.l-hearts svg{width:26px;height:26px}
+.l-hearts.inf{color:var(--blue)}
+.l-body{flex:1;overflow-y:auto;padding:12px 16px 24px}
+.l-inner{max-width:600px;margin:0 auto}
+.combo{height:24px;color:var(--orange);font-weight:900;font-size:14px;letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.combo svg{width:20px;height:20px}
+.combo.pop{animation:pop .25s ease-out}
+.q-tag{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.q-type{font-size:13px;font-weight:900;color:var(--purple-d);letter-spacing:.6px;text-transform:uppercase}
+.q-title{font-size:24px;font-weight:900;line-height:1.25;margin-bottom:18px}
+.speaker{display:flex;align-items:flex-end;gap:12px;margin-bottom:22px}
+.speaker .mascot-wrap{width:92px;flex:0 0 92px}
+.bubble{position:relative;border:2px solid var(--line);border-radius:16px;padding:14px 16px;font-size:17px;line-height:1.45;font-weight:700;color:var(--ink);margin-bottom:22px}
+.bubble::before{content:"";position:absolute;left:-9px;bottom:18px;width:14px;height:14px;background:#fff;border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;align-items:center;gap:14px;text-align:left;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;padding:13px 16px;font-size:16px;font-weight:700;line-height:1.35;background:#fff;transition:background .1s}
+.choice:hover:not(:disabled){background:var(--snow)}
+.choice:active:not(:disabled){transform:translateY(2px);border-bottom-width:2px;margin-bottom:2px}
+.choice .key{flex:0 0 30px;height:30px;border:2px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:14px;font-weight:800;color:var(--faint)}
+.choice.multi .key{border-radius:8px}
+.choice.sel{background:var(--blue-l);border-color:var(--blue-b);color:var(--blue-d)}
+.choice.sel .key{border-color:var(--blue-b);color:var(--blue-d)}
+.choice.right{background:var(--green-l);border-color:var(--green-b);color:var(--green-d)}
+.choice.right .key{border-color:var(--green-b);color:var(--green-d)}
+.choice.wrong{background:var(--red-l);border-color:var(--red-b);color:var(--red-d)}
+.choice.wrong .key{border-color:var(--red-b);color:var(--red-d)}
+.choice.shake{animation:shake .35s}
+.choice:disabled{cursor:default}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+.sum{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:.9;margin:0 2px;font-size:1.25em}
+.sum .lim{font-size:.5em;font-weight:800}
+.fx{font-family:'Cambria Math','Times New Roman',serif;font-style:italic;font-weight:600;font-size:18px}
+.fx sub,.fx sup{font-size:.65em}
+
+/* match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:flex;flex-direction:column;gap:10px}
+.tile{min-height:64px;border:2px solid var(--line);border-bottom-width:4px;border-radius:14px;padding:10px 12px;font-size:15px;font-weight:800;text-align:center;background:#fff;line-height:1.25;display:flex;align-items:center;justify-content:center}
+.tile:hover:not(:disabled){background:var(--snow)}
+.tile.sel{background:var(--blue-l);border-color:var(--blue-b);color:var(--blue-d)}
+.tile.ok{background:var(--green-l);border-color:var(--green-b);color:var(--green-d)}
+.tile.bad{background:var(--red-l);border-color:var(--red-b);color:var(--red-d);animation:shake .35s}
+.tile.gone{background:#fff;border-color:var(--line);color:#D6D6D6;cursor:default}
+.tile.term{font-weight:900;font-size:16px}
+
+/* learn card */
+.learn{border:2px solid var(--line);border-bottom-width:4px;border-radius:18px;padding:18px;margin-bottom:8px}
+.learn h2{font-size:22px;font-weight:900;margin-bottom:8px;line-height:1.25}
+.learn .body{font-size:16px;line-height:1.55;font-weight:700}
+.learn .body b{color:var(--blue-d)}
+.learn .body ul,.learn .body ol{margin:8px 0 0 22px}
+.learn .ex{margin-top:12px;background:var(--blue-l);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.45;color:var(--blue-d)}
+.learn .ex::before{content:"Example";display:block;font-size:12px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
+
+/* footer */
+.l-foot{border-top:2px solid var(--line);background:#fff;transition:background .15s}
+.l-foot.ok{background:var(--green-l);border-color:transparent}
+.l-foot.no{background:var(--red-l);border-color:transparent}
+.foot-in{max-width:1000px;margin:0 auto;padding:18px 16px 22px;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.fb{display:flex;gap:14px;align-items:flex-start;flex:1;min-width:0;max-height:42vh;overflow-y:auto}
+.fb-icon{flex:0 0 64px;height:64px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.fb-icon svg{width:34px;height:34px}
+.fb h3{font-size:22px;font-weight:900}
+.l-foot.ok .fb h3{color:var(--green-d)} .l-foot.no .fb h3{color:var(--red-d)}
+.fb .ans{font-size:15px;font-weight:800;margin-top:4px}
+.l-foot.ok .fb .ans{color:var(--green-d)} .l-foot.no .fb .ans{color:var(--red-d)}
+.fb .why{font-size:15px;font-weight:700;line-height:1.45;margin-top:6px}
+.l-foot.ok .fb .why{color:#3E7D00} .l-foot.no .fb .why{color:#B3261E}
+.foot-in .btn{min-width:160px}
+.l-foot.no .btn{background:var(--red);box-shadow:0 4px 0 var(--red-d)}
+@media (max-width:640px){
+  .foot-in{flex-direction:column;align-items:stretch}
+  .foot-in .btn{width:100%}
+  .fb-icon{display:none}
+  .q-title{font-size:21px}
+  .bubble{font-size:16px}
+  .speaker .mascot-wrap{width:70px;flex-basis:70px}
+}
+
+/* ---------- Overlays ---------- */
+.screen{position:fixed;inset:0;background:#fff;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;overflow:hidden}
+.screen .mascot-wrap{width:150px;margin-bottom:12px}
+.screen h2{font-size:30px;font-weight:900;color:var(--gold-d);margin-bottom:6px}
+.screen h2.red{color:var(--red)}
+.screen .sub{color:var(--muted);font-size:17px;margin-bottom:24px;max-width:420px}
+.cards{display:flex;gap:12px;margin-bottom:30px;flex-wrap:wrap;justify-content:center}
+.scard{width:130px;border-radius:16px;border:2px solid;overflow:hidden}
+.scard .t{font-size:12px;font-weight:900;color:#fff;padding:5px 0;letter-spacing:.6px;text-transform:uppercase}
+.scard .v{background:#fff;margin:0 2px 2px;border-radius:0 0 13px 13px;padding:12px 0;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px}
+.scard .v svg{width:22px;height:22px}
+.scard.gold{border-color:var(--gold);background:var(--gold)} .scard.gold .v{color:var(--gold-d)}
+.scard.green{border-color:var(--green);background:var(--green)} .scard.green .v{color:var(--green-d)}
+.scard.blue{border-color:var(--blue);background:var(--blue)} .scard.blue .v{color:var(--blue-d)}
+.scard.orange{border-color:var(--orange);background:var(--orange)} .scard.orange .v{color:var(--orange)}
+.screen .actions{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px}
+.review-list{max-width:520px;width:100%;text-align:left;margin:-10px 0 24px;max-height:30vh;overflow-y:auto;border:2px solid var(--line);border-radius:16px;padding:12px 14px}
+.review-list .ri{padding:8px 0;border-bottom:2px solid var(--snow);font-size:14px;line-height:1.35}
+.review-list .ri:last-child{border:none}
+.review-list .ri b{color:var(--red-d)}
+.review-list .ri span{color:var(--green-d)}
+
+.confetti{position:absolute;top:-20px;width:10px;height:16px;border-radius:3px;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:80;display:flex;align-items:flex-end;justify-content:center;animation:fade .15s}
+@media (min-width:700px){.modal-bg{align-items:center}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;width:100%;max-width:560px;border-radius:22px 22px 0 0;padding:22px 20px 26px;max-height:86vh;overflow-y:auto;animation:up .2s ease-out}
+@media (min-width:700px){.modal{border-radius:22px}}
+@keyframes up{from{transform:translateY(40px)}to{transform:translateY(0)}}
+.modal h2{font-size:22px;font-weight:900;margin-bottom:4px}
+.modal .msub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.gb-item{display:flex;gap:12px;padding:12px 0;border-bottom:2px solid var(--snow);align-items:flex-start}
+.gb-item:last-of-type{border:none}
+.gb-term{flex:0 0 120px;font-weight:900;font-size:15px}
+.gb-def{font-size:15px;color:var(--ink);font-weight:700;line-height:1.4}
+.tip{margin-top:12px;background:#FFF4CC;border-radius:14px;padding:12px 14px;font-size:14px;color:#8A6300;line-height:1.45}
+.tip b{color:#6B4C00}
+.modal .btn{margin-top:18px}
+
+/* mascot moods */
+.mascot img{display:block;width:100%;height:auto}
+.mascot .m-happy,.mascot .m-sad{display:none}
+.mascot.happy .m-norm,.mascot.sad .m-norm{display:none}
+.mascot.happy .m-happy{display:block}
+.mascot.sad .m-sad{display:block}
+@media (prefers-reduced-motion:no-preference){
+  .mascot.happy{animation:hop .3s ease-out}
+  .mascot.sad{animation:shake .3s}
+}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+</style>
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<header class="topbar" id="topbar">
+  <div class="topbar-in">
+    <div class="course-chip"><div class="flag" id="cTag"></div><span id="cMod"></span></div>
+    <div class="stats">
+      <div class="stat fire" title="Day streak"><svg viewBox="0 0 24 24"><path fill="#FF9600" d="M12 2c1 3.5 5.5 5.6 5.5 11a5.5 5.5 0 0 1-11 0c0-2.4 1-4 2.2-5.2.2 1.6.9 2.7 2 3.2C10 8.4 10.6 4.6 12 2z"/><path fill="#FFC800" d="M12 12.5c.6 1.6 2.5 2.4 2.5 4.6a2.5 2.5 0 0 1-5 0c0-1.5.9-2.4 1.5-3 .2.7.5 1.1 1 1.2 0-1-.2-1.9 0-2.8z"/></svg><span id="sStreak">0</span></div>
+      <div class="stat gem" title="Total XP"><svg viewBox="0 0 24 24"><path fill="#1CB0F6" d="M6 3h12l4 6-10 12L2 9z"/><path fill="#84D8FF" d="M6 3h12l-3 6H9z"/><path fill="#1899D6" d="M2 9h7l3 12z"/></svg><span id="sXP">0</span></div>
+      <div class="stat heart" title="Hearts per lesson"><svg viewBox="0 0 24 24"><path fill="#FF4B4B" d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.7 12 21 12 21z"/><ellipse cx="8" cy="9" rx="1.8" ry="1.2" fill="#fff" opacity=".6"/></svg><span>5</span></div>
+      <button class="icon-btn" id="soundBtn" title="Sound on/off"></button>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="mascot-wrap" data-mascot="idle"></div>
+    <div>
+      <h1 id="hTitle"></h1>
+      <p id="hBlurb"></p>
+      <div class="row">
+        <span class="pill gold" id="hScore"></span>
+        <span class="pill blue" id="lessonsDone">0/9 lessons</span>
+      </div>
+    </div>
+  </section>
+  <div id="units"></div>
+  <section class="boss">
+    <div class="trophy"><svg viewBox="0 0 24 24"><path fill="#fff" d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V17h3v4H8v-4h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3zm-1 4v1a2 2 0 0 0 1 1.7V7zm11 0v2.7a2 2 0 0 0 1-1.7V7z"/></svg></div>
+    <div style="flex:1">
+      <h3 id="bossTitle"></h3>
+      <p id="bossSub"></p>
+      <button class="btn gold" id="bossBtn">Fight</button>
+    </div>
+  </section>
+</main>
+
+<div class="fab-mistakes hidden" id="fab"><button class="btn red wide" id="fabBtn"></button></div>
+
+<!-- ============ LESSON ============ -->
+<section id="lesson" class="hidden">
+  <div class="l-head">
+    <button class="x" id="quitBtn" title="Quit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <div class="bar"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+    <div class="l-hearts" id="lHearts"></div>
+  </div>
+  <div class="l-body"><div class="l-inner" id="qArea"></div></div>
+  <div class="l-foot" id="foot">
+    <div class="foot-in">
+      <div class="fb" id="fb"></div>
+      <button class="btn" id="mainBtn" disabled>Check</button>
+    </div>
+  </div>
+</section>
+
+<div id="overlay"></div>
+
+<script>
+/* ============================================================
+   CONFIG + CONTENT  (the only part you edit per reviewer)
+   ============================================================ */
+const CONFIG = {
+  pageTitle: "Psych Quest: REBT & Reality Therapy",
+  courseTag: "PSY",
+  moduleLabel: "Counseling Theories",
+  title: "REBT & Reality Therapy",
+  blurb: "Ellis's beliefs and Glasser's choices, taught card by card, then drilled. Learn it, keep your hearts, beat the Final Boss.",
+  realScore: null,
+  bossTitle: "Final Boss: Full Review",
+  srcPill: "Review #",
+  bossNoun: "review questions",
+  storageKey: "quizquest_rebt_reality_v1"
+};
+
+// Formula helpers: SJ = sum over j=1..m, SI = sum over i=1..n, fx() = math styling
+const SJ = '<span class="sum"><span class="lim">m</span>Σ<span class="lim">j=1</span></span>';
+const SI = '<span class="sum"><span class="lim">n</span>Σ<span class="lim">i=1</span></span>';
+const fx = s => `<span class="fx">${s}</span>`;
+
+/* ITEM SHAPES
+   single: {type:'single', src:N?, missed:true?, prompt, choices:[...], ans:[i], why}
+   multi:  {type:'multi', need:K, src:N?, prompt, choices:[...], ans:[i,j,k], why}
+   match:  {type:'match', prompt, pairs:[[term,def],...5], why}
+   learn:  {type:'learn', title, body(html), ex?(html), say?}   teach card shown before questions; ids l1..
+*/
+const ITEMS = {
+/* ---------------- UNIT 1: REBT origins ---------------- */
+l1:{type:'learn',title:"What is REBT?",say:"New theory! Read this, then I'll quiz you.",
+ body:"<b>Rational Emotive Behavior Therapy (REBT)</b> was developed by <b>Albert Ellis</b> in the <b>mid-1950s</b>. It is the <b>first of the cognitive behavior therapies</b> and is still a major cognitive-behavioral approach today. The core idea: emotional struggles come from the way people think, especially their <b>irrational beliefs</b>.",
+ ex:"Two students fail the same quiz. One thinks “I'm hopeless” and gives up. The other thinks “I need a new study plan.” Same event, different beliefs, different feelings."},
+l2:{type:'learn',title:"Why Ellis left psychoanalysis",
+ body:"Ellis felt <b>psychoanalysis</b> was long-term and introspective, <b>too focused on past events and unconscious processes</b>, so progress was slow and practical results were limited. REBT instead focuses on the <b>present moment</b> and tackles irrational thoughts <b>directly</b>. Its attitude is <b>realistic optimism</b>: acknowledge the negatives, but keep the main focus on what is constructive and health-promoting (Corey, 2024). <b>Martin E. Seligman</b> (father of positive psychology) and <b>Aaron T. Beck</b> both acknowledged REBT's influence."},
+q1:{type:'single',src:1,prompt:"REBT is described as the first of which family of therapies?",
+ choices:["Cognitive behavior therapies","Psychodynamic therapies","Humanistic therapies","Family systems therapies"],ans:[0],
+ why:"REBT is the first of the cognitive behavior therapies and is still a major CBT approach. It was a reaction against psychodynamic work, not part of it."},
+q2:{type:'single',src:2,prompt:"Which criticism did Ellis have of psychoanalysis?",
+ choices:["It was too focused on the past and the unconscious, so progress was slow","It focused too much on the present moment","It assigned too much homework","It ignored the therapist's role as a teacher"],ans:[0],
+ why:"Ellis saw psychoanalysis as long-term and introspective, stuck on past events and unconscious processes, with slow progress and few practical results. REBT is the present-focused fix."},
+q3:{type:'single',src:3,prompt:"According to Ellis, where does the key to treating emotional struggles lie?",
+ choices:["In the way people think, especially their irrational beliefs","In uncovering repressed childhood memories","In changing the client's environment","In medication and rest"],ans:[0],
+ why:"Unhealthy thoughts and beliefs create emotional distress, which leads to unproductive behavior. So REBT goes after the beliefs."},
+q4:{type:'single',src:4,prompt:"The attitude and approach of REBT is best described as:",
+ choices:["Realistic optimism","Unconditional positivity","Radical acceptance","Clinical neutrality"],ans:[0],
+ why:"Realistic optimism: face and address the negatives, but keep the main focus on what is constructive, positive, and health-promoting."},
+q5:{type:'multi',need:2,src:5,prompt:"Which two psychologists acknowledged REBT's influence on their work? (Choose 2)",
+ choices:["Martin E. Seligman","Aaron T. Beck","Sigmund Freud","Carl Rogers"],ans:[0,1],
+ why:"Seligman, the father of positive psychology, and Aaron T. Beck both credited REBT's influence."},
+
+l3:{type:'learn',title:"Ellis's rough childhood",say:"Origin story time.",
+ body:"Albert Ellis was born <b>September 27, 1913</b>, in <b>Pittsburgh, Pennsylvania</b>, the <b>eldest of three</b> children. His family was emotionally distant and his mother was <b>overcritical</b> and self-absorbed. A sickly child, he was <b>hospitalized again and again between ages 5 and 7</b> (kidney disease, severe infections) and his parents seldom visited. This built his <b>independence and emotional resilience</b>. He also took care of his siblings."},
+l4:{type:'learn',title:"Ellis faces his fears",
+ body:"Ellis was extremely <b>shy around women</b> and <b>afraid of public speaking</b>. His fix: he approached <b>more than 130 women at the Bronx Botanical Gardens within a month</b>. He beat his public speaking fear the same way, by slowly desensitizing himself. In the <b>1930s</b> he wrote an <b>unpublished autobiography</b> about his shame and anxiety over his family's <b>poverty</b>, and it already held many of his therapy principles.",
+ ex:"This is basically exposure: do the scary thing again and again until it stops being scary. Ellis tested his ideas on himself first."},
+q6:{type:'single',src:6,prompt:"Where and when was Albert Ellis born?",
+ choices:["Pittsburgh, Pennsylvania, September 27, 1913","Cleveland, Ohio, May 11, 1925","Cincinnati, Ohio, February 1936","New York City, September 27, 1913"],ans:[0],
+ why:"Ellis: Pittsburgh, 1913. Cleveland 1925 is Glasser and Cincinnati 1936 is Wubbolding, the Reality Therapy people."},
+q7:{type:'single',src:7,prompt:"What did Ellis's lonely childhood hospital stays build in him?",
+ choices:["Independence and emotional resilience","A lifelong fear of doctors","Dependence on his mother","Interest in psychoanalysis"],ans:[0],
+ why:"His parents seldom visited or comforted him, so he learned independence and emotional resilience early."},
+q8:{type:'single',src:8,prompt:"How did Ellis tackle his shyness around women?",
+ choices:["He approached more than 130 women at the Bronx Botanical Gardens within a month","He wrote letters to women instead of talking","He went through years of psychoanalysis","He practiced only in role plays with a therapist"],ans:[0],
+ why:"He confronted the fear head on, 130+ approaches in one month, and used the same desensitizing approach on public speaking."},
+q9:{type:'single',src:9,prompt:"Ellis's 1930s unpublished autobiography was about his shame and anxiety over:",
+ choices:["His family's poverty","A failed marriage","His kidney disease","Failing in public speaking"],ans:[0],
+ why:"It was about overcoming shame and anxiety over his family's poverty, and it already contained many of his therapy principles."},
+q10:{type:'single',src:10,prompt:"Which is NOT part of Ellis's childhood as described in the lesson?",
+ choices:["Warm parents who visited often","An overcritical mother","Repeated hospitalizations between ages 5 and 7","Caring for his siblings"],ans:[0],
+ why:"His parents seldom visited. The family was emotionally distant, which is exactly why he became so independent."},
+
+l5:{type:'learn',title:"Stoic roots and the CBT link",
+ body:"Ellis drew on <b>Stoic philosophy</b>: emotional suffering comes not from events but from <b>how we interpret and evaluate them</b>. So <b>irrational beliefs</b> (rigid, unrealistic, absolutist thoughts) are the root of distress. Ellis is called the <b>grandfather of CBT</b> because REBT was one of its pillars, and he was one of the <b>first to assign homework</b> between sessions, like in vivo behavioral exposure. The lesson's distinction: <b>CBT</b> mainly aims to modify <b>maladaptive behaviors</b>, while <b>REBT</b> targets the <b>irrational beliefs</b> under emotional distress."},
+l6:{type:'learn',title:"From LAMP to REBT",
+ body:"In the <b>1940s</b> Ellis founded the <b>LAMP Institute (Love and Marriage Problems)</b>. At <b>age 40</b> he earned a doctorate in <b>clinical psychology from Columbia University</b>. He then ran two practices at once, <b>traditional psychoanalysis</b> and <b>marital and sex therapy</b>, and found the active, attitude-changing second one more effective. He believed therapists should use <b>any strategy that helps clients change</b>, and the name grew with that: <b>Rational Therapy</b> → <b>Rational-Emotive Therapy</b> → <b>Rational Emotive Behavior Therapy</b>, a term proposed by <b>Ray Corsini in 1994</b>.",
+ ex:"Name hook: R → RE → REB. Each rename adds a piece: thinking, then emotion, then behavior."},
+q11:{type:'single',src:11,prompt:"Which philosophy inspired REBT?",
+ choices:["Stoic philosophy","Existentialism","Utilitarianism","Pragmatism"],ans:[0],
+ why:"The Stoics taught that suffering comes from how we judge events, not the events themselves. That is REBT's core."},
+q12:{type:'single',src:12,prompt:"Ellis is known as the ___ of Cognitive Behavior Therapy.",
+ choices:["Grandfather","Father","Founder","Critic"],ans:[0],
+ why:"The lesson calls him the grandfather of CBT, since REBT was one of the pillars CBT developed from."},
+q13:{type:'single',src:13,prompt:"According to the lesson, what is the key difference between CBT and REBT?",
+ choices:["CBT mainly modifies maladaptive behaviors, REBT targets the irrational beliefs behind distress","CBT targets beliefs, REBT targets only behaviors","CBT focuses on the past, REBT on the future","There is no difference"],ans:[0],
+ why:"Lesson wording: CBT primarily aims to modify maladaptive behaviors, whereas REBT targets the irrational beliefs underlying emotional distress."},
+q14:{type:'single',src:14,prompt:"What does LAMP stand for in Ellis's LAMP Institute?",
+ choices:["Love and Marriage Problems","Life and Mental Progress","Learning About Mental Pain","Love, Anxiety and Mood Problems"],ans:[0],
+ why:"LAMP = Love and Marriage Problems, founded in the 1940s to advise people with relationship issues."},
+q15:{type:'single',src:15,prompt:"Put REBT's names in the correct order.",
+ choices:["Rational Therapy → Rational-Emotive Therapy → Rational Emotive Behavior Therapy","Rational-Emotive Therapy → Rational Therapy → Rational Emotive Behavior Therapy","Rational Emotive Behavior Therapy → Rational-Emotive Therapy → Rational Therapy","Rational Therapy → Rational Emotive Behavior Therapy → Rational-Emotive Therapy"],ans:[0],
+ why:"The name grows one word at a time: Rational, then Rational-Emotive (adds emotion), then REBT (adds behavior)."},
+q16:{type:'single',src:16,prompt:"Who proposed the term “Rational Emotive Behavior Therapy” in 1994?",
+ choices:["Ray Corsini","Albert Ellis","Aaron Beck","William Glasser"],ans:[0],
+ why:"Ray Corsini proposed it to reflect Ellis's use of behavioral techniques."},
+q17:{type:'single',src:17,prompt:"At age 40, Ellis earned a doctorate in clinical psychology from:",
+ choices:["Columbia University","University of Cincinnati","Harvard University","University of Pittsburgh"],ans:[0],
+ why:"Columbia, for the credibility of his expertise. University of Cincinnati is where Wubbolding got his doctorate."},
+m1:{type:'match',prompt:"Tap the matching pairs",pairs:[["Albert Ellis","Founded REBT"],["Stoicism","Our views of events upset us"],["LAMP Institute","Love and Marriage Problems"],["Ray Corsini","Proposed the name REBT"],["Columbia","Where Ellis got his doctorate"]],
+ why:"Ellis founded REBT on Stoic ideas, started LAMP in the 1940s, got his doctorate at Columbia, and Corsini named REBT in 1994."},
+
+/* ---------------- UNIT 2: Human nature & beliefs ---------------- */
+l7:{type:'learn',title:"REBT's view of people",say:"Four big ideas. Got a mnemonic for you.",
+ body:"<b>Personal responsibility:</b> we are responsible for our own feelings and actions. <b>Rational vs. irrational thinking:</b> everyone can think both ways. Rational thoughts are logical and realistic, irrational ones are extreme and illogical, and we shift between them. <b>Growth and change:</b> let go of irrational beliefs and adopt rational ones. <b>Holistic interconnectedness:</b> thoughts, emotions, and behaviors are one connected system, so changing how we think changes how we feel and act.",
+ ex:"Made-up mnemonic: <b>R-R-G-H</b>, “Really Rational Growth Helps” = Responsibility, Rational vs. irrational, Growth, Holistic."},
+q18:{type:'single',src:18,prompt:"In REBT, who is responsible for a person's feelings and actions?",
+ choices:["The person themself","Their parents","Their environment","Their therapist"],ans:[0],
+ why:"Personal responsibility: individuals choose whether their behaviors help or harm them, and can control their thoughts and beliefs."},
+q19:{type:'single',src:19,prompt:"Which statement about rational and irrational thinking is true in REBT?",
+ choices:["Everyone can think both ways and often shifts between them","Only people with disorders think irrationally","Rational thinkers never have irrational thoughts","Irrational thinking cannot be changed"],ans:[0],
+ why:"Ellis said everyone can think rationally and irrationally, and people often shift between the two."},
+q20:{type:'single',src:20,prompt:"Rational thoughts are ___, while irrational thoughts are ___.",
+ choices:["logical and realistic / extreme and illogical","emotional / unemotional","positive / negative","conscious / unconscious"],ans:[0],
+ why:"Rational = logical and realistic. Irrational = extreme and illogical. It's not about positive vs. negative."},
+q21:{type:'single',src:21,prompt:"“Changing how you think can change how you feel and act.” Which view of human nature is this?",
+ choices:["Holistic interconnectedness","Personal responsibility","Growth and change","Rational vs. irrational thinking"],ans:[0],
+ why:"Holistic interconnectedness treats thoughts, emotions, and behaviors as parts of one system."},
+q22:{type:'single',src:22,prompt:"Which is NOT one of REBT's views of human nature?",
+ choices:["Behavior is driven by unconscious childhood conflicts","Personal responsibility","Growth and change","Holistic interconnectedness"],ans:[0],
+ why:"Unconscious conflicts are a psychoanalytic idea, the very thing Ellis moved away from."},
+
+l8:{type:'learn',title:"Where disturbance comes from",
+ body:"We <b>learn irrational beliefs from significant others during childhood</b>, then <b>re-create them</b> throughout life. We keep reinforcing them through <b>autosuggestion and self-repetition</b>, and act in ways that fit them. The key twist: it is largely <b>our own repetition</b> of those early beliefs, <b>not the parent's</b>, that keeps them alive.",
+ ex:"Your parent said “You must be the best” a few times. You've repeated it to yourself a thousand times since. REBT says your thousand repeats are what keep it going."},
+l9:{type:'learn',title:"The three musts",
+ body:"Ellis said <b>self-damning and self-blame</b> are at the core of many disturbances, so we need to <b>fully, unconditionally accept ourselves</b>, flaws and all. We tend to turn preferences into dogmatic <b>“shoulds,” “musts,” and “oughts.”</b> The <b>three basic musts</b> (Ellis & Ellis, 2019a):<br>1. <b>“I must do well and be loved and approved by others.”</b><br>2. <b>“Other people must treat me fairly, kindly, and well.”</b><br>3. <b>“The world and my living conditions must be comfortable, gratifying, and just.”</b>",
+ ex:"Made-up hook: the three musts aim at <b>Me, You, and the World</b>."},
+q23:{type:'single',src:23,prompt:"According to REBT, where do we first learn irrational beliefs?",
+ choices:["From significant others during childhood","From our genes","From traumatic events in adulthood","From the media"],ans:[0],
+ why:"Irrational beliefs are learned from significant others in childhood, then re-created throughout life."},
+q24:{type:'single',src:24,prompt:"What mainly keeps early irrational beliefs alive?",
+ choices:["Our own repetition through autosuggestion and self-repetition","Our parents repeating them to us","The unconscious mind","Not going to therapy"],ans:[0],
+ why:"Classic trap: it's our own repetition, not the parent's, that keeps dysfunctional attitudes operating."},
+q25:{type:'single',src:25,prompt:"Ellis said what is at the core of many emotional disturbances?",
+ choices:["Self-damning and self-blame","Low intelligence","Unresolved Oedipal conflicts","Poor diet and sleep"],ans:[0],
+ why:"Self-damning and self-blame. The cure is unconditional self-acceptance."},
+q26:{type:'single',src:26,prompt:"Irrational beliefs usually show up as:",
+ choices:["Dogmatic shoulds, musts, and oughts","Gentle preferences and wishes","Factual observations","Questions about the future"],ans:[0],
+ why:"We turn preferences (“I'd like to”) into demands (“I must”). Those demands create disruptive feelings."},
+q27:{type:'single',src:27,prompt:"“Other people must treat me fairly, kindly, and well” is which basic must?",
+ choices:["The must about others","The must about myself","The must about the world","Not one of the three musts"],ans:[0],
+ why:"Must #2 is about others. #1 is about me (do well, be approved), #3 is about the world (comfortable, gratifying, just)."},
+q28:{type:'multi',need:2,src:28,prompt:"Which TWO are among Ellis's three basic musts? (Choose 2)",
+ choices:["“I must do well and be loved and approved by others.”","“The world and my living conditions must be comfortable, gratifying, and just.”","“I must always understand my unconscious motives.”","“I must never feel any emotion.”"],ans:[0,1],
+ why:"The three musts are about me, others, and the world. The other two choices are made up."},
+
+l10:{type:'learn',title:"What REBT aims for",
+ body:"REBT works mostly in the <b>present</b>, showing how perceptions of situations cause distress and unhealthy behavior. It especially helps with <b>depression, anxiety, addictive behaviors, phobias, procrastination, eating disorders, sleep problems</b>, and overwhelming <b>anger, guilt, shame, or rage</b>. Another goal is the three acceptances: <b>unconditional self-acceptance (USA)</b>, <b>unconditional other-acceptance (UOA)</b>, and <b>unconditional life-acceptance (ULA)</b>. Accepting yourself makes it easier to accept others and life as it is."},
+l11:{type:'learn',title:"The therapist's five hats",
+ body:"<b>Teacher/Educator:</b> teaches the ABC model and how to tell rational from irrational beliefs.<br><b>Safe Space Facilitator:</b> offers empathy and validation <b>without reinforcing irrational beliefs</b>.<br><b>Disputer:</b> challenges irrational beliefs with <b>logical, empirical, and pragmatic</b> disputation.<br><b>Coping Strategies Facilitator:</b> teaches practical coping and emotional regulation techniques.<br><b>Empowerment Advocate:</b> builds <b>self-efficacy</b> by helping clients see their strengths."},
+q29:{type:'single',src:29,prompt:"What do USA, UOA, and ULA stand for?",
+ choices:["Unconditional self-, other-, and life-acceptance","Universal self-, other-, and life-awareness","Unconditional self-, other-, and love-attachment","Unified self-, outer-, and life-analysis"],ans:[0],
+ why:"Unconditional self-acceptance, other-acceptance, and life-acceptance (Ellis & Ellis, 2019a)."},
+q30:{type:'single',src:30,prompt:"Which is NOT listed as an issue REBT can help with?",
+ choices:["Color blindness","Procrastination","Phobias","Sleep problems"],ans:[0],
+ why:"The list: depression, anxiety, addictive behaviors, phobias, procrastination, eating disorders, sleep problems, and overwhelming anger, guilt, shame, or rage."},
+q31:{type:'single',src:31,prompt:"A therapist explains the ABC model to a client. Which role is this?",
+ choices:["Teacher/Educator","Disputer","Safe Space Facilitator","Empowerment Advocate"],ans:[0],
+ why:"Teaching the ABC model and how to spot irrational beliefs is the Teacher/Educator role."},
+q32:{type:'single',src:32,prompt:"A therapist questions a client's “must” using logic, evidence, and practicality. Which role?",
+ choices:["Disputer","Teacher/Educator","Coping Strategies Facilitator","Safe Space Facilitator"],ans:[0],
+ why:"The Disputer uses logical, empirical, and pragmatic disputation on musts and shoulds."},
+q33:{type:'single',src:33,prompt:"The Safe Space Facilitator validates the client's experiences but must avoid:",
+ choices:["Reinforcing irrational beliefs","Showing empathy","Building rapport","Letting clients express emotions"],ans:[0],
+ why:"Validate the feelings, never the irrational belief. Empathy and rapport are exactly what this role provides."},
+q34:{type:'single',src:34,prompt:"Which role focuses on building self-efficacy by helping clients see their strengths?",
+ choices:["Empowerment Advocate","Disputer","Teacher/Educator","Coping Strategies Facilitator"],ans:[0],
+ why:"Empowerment Advocate: recognize strengths, build self-efficacy, take charge of your life."},
+m2:{type:'match',prompt:"Match each therapist role to its job",pairs:[["Teacher/Educator","Explains the ABC model"],["Disputer","Challenges irrational beliefs"],["Safe Space Facilitator","Empathy without reinforcing beliefs"],["Coping Facilitator","Teaches emotion regulation"],["Empowerment Advocate","Builds self-efficacy"]],
+ why:"Five hats: teach, provide safety, dispute, teach coping, empower."},
+
+/* ---------------- UNIT 3: ABCDE ---------------- */
+l12:{type:'learn',title:"A, B, C",say:"This one's the heart of REBT. Slow down here.",
+ body:"<b>A = Activating event:</b> an event, adversity, or a person's inference about it.<br><b>B = Belief:</b> what the person believes about A.<br><b>C = Consequence:</b> the emotional and behavioral reaction, healthy or unhealthy.<br>The big rule: <b>A does not cause C. B largely creates C.</b> People are largely responsible for creating their own emotional reactions.",
+ ex:"A: your crush leaves you on read. B: “They must hate me, I'm unlovable.” C: you feel crushed and avoid them. Change B to “Maybe they're busy” and C changes too."},
+q35:{type:'single',src:35,prompt:"In the ABC model, what does A stand for?",
+ choices:["Activating event","Attitude","Anxiety","Acceptance"],ans:[0],
+ why:"A = Activating event: an event, adversity, or an inference about one."},
+q36:{type:'single',src:36,prompt:"According to REBT, what largely creates C, the emotional consequence?",
+ choices:["B, the person's belief about the event","A, the activating event itself","D, the disputing","The therapist's response"],ans:[0],
+ why:"The core rule: A does not cause C. B, the belief about A, largely creates C."},
+q37:{type:'single',src:37,prompt:"Jo fails a test, thinks “I'm a total failure,” then skips class for a week. What is “skips class for a week”?",
+ choices:["C: Consequence","A: Activating event","B: Belief","D: Disputation"],ans:[0],
+ why:"Skipping class is the behavioral reaction, so it's C. Failing the test is A, and “I'm a total failure” is B."},
+q38:{type:'single',src:38,prompt:"In the same example, “I'm a total failure” is:",
+ choices:["B: Belief","A: Activating event","C: Consequence","E: Effect"],ans:[0],
+ why:"It's Jo's belief about the event, and an irrational, self-damning one."},
+
+l13:{type:'learn',title:"D and E",
+ body:"<b>D = Disputing:</b> challenging irrational beliefs. It has three parts: <b>detecting</b>, <b>debating</b>, and <b>discriminating</b> (telling irrational, self-defeating beliefs from rational, self-helping ones). Beliefs are questioned <b>logically, empirically, and pragmatically</b>.<br><b>E = Effect:</b> a <b>new effective philosophy</b>, rational beliefs that replace the irrational ones and prevent the unhealthy consequences. <b>Collaboratively designed homework</b> helps keep the gains.",
+ ex:"Logical: “Does failing one test make me a total failure?” Empirical: “What's the evidence?” Pragmatic: “Is believing this helping me?”"},
+q39:{type:'single',src:39,prompt:"What are the three components of disputing?",
+ choices:["Detecting, debating, discriminating","Defining, debating, deciding","Detecting, describing, deleting","Doubting, denying, discriminating"],ans:[0],
+ why:"Three Ds inside D: detect the belief, debate it, discriminate rational from irrational."},
+q40:{type:'single',src:40,prompt:"Learning to tell self-defeating beliefs from self-helping beliefs is called:",
+ choices:["Discriminating","Detecting","Debating","Reframing"],ans:[0],
+ why:"Discriminating = telling irrational (self-defeating) from rational (self-helping). Detecting just finds them."},
+q41:{type:'multi',need:3,src:41,prompt:"Which are the three ways to question irrational beliefs? (Choose 3)",
+ choices:["Logically","Empirically","Pragmatically","Hypnotically"],ans:[0,1,2],
+ why:"Logical (does it make sense?), empirical (where's the evidence?), pragmatic (does it help me?)."},
+q42:{type:'single',src:42,prompt:"What is E in the ABCDE model?",
+ choices:["Effect: a new effective philosophy of rational beliefs","Emotion: the feeling caused by the event","Evaluation: judging whether behavior works","Exposure: facing the feared event"],ans:[0],
+ why:"E = Effect, the new effective philosophy. Don't mix it with the E in WDEP (Evaluation), which is Reality Therapy."},
+q43:{type:'single',src:43,prompt:"Which shows the model in the correct order?",
+ choices:["Activating event → Belief → Consequence → Disputation → Effect","Belief → Activating event → Consequence → Effect → Disputation","Activating event → Consequence → Belief → Disputation → Effect","Disputation → Activating event → Belief → Consequence → Effect"],ans:[0],
+ why:"It's just the alphabet: A, B, C, D, E."},
+m3:{type:'match',prompt:"Match each letter to its meaning",pairs:[["A","Activating event"],["B","Belief about the event"],["C","Emotional and behavioral reaction"],["D","Disputing irrational beliefs"],["E","New effective philosophy"]],
+ why:"A happens, B is what you tell yourself, C is the result, D challenges B, E is the healthier new belief."},
+
+/* ---------------- UNIT 4: REBT techniques ---------------- */
+l14:{type:'learn',title:"Thinking tools, part 1",say:"Toolbox time. Sort them by thinking, feeling, doing.",
+ body:"<b>Rational analysis:</b> clients analyze <b>past situations</b> to uncover and challenge irrational beliefs.<br><b>Cognitive homework:</b> clients <b>list their problems, identify their absolutist beliefs, and challenge them</b>, tracking down the “shoulds” and “musts” in their self-talk.<br><b>Bibliotherapy:</b> reading as an <b>adjunctive</b> form of treatment. Pluses: <b>cost-effective, widely available, and able to reach a broad range of people</b>."},
+l15:{type:'learn',title:"Thinking tools, part 2",
+ body:"<b>Devil's advocate (reverse role playing):</b> the <b>therapist argues in favor of the client's irrational belief</b> so the client sees the flaws in it.<br><b>Reframing:</b> reinterpreting a negative event as <b>less catastrophic</b>, or finding positive aspects in it, to reduce distress.",
+ ex:"Therapist: “Right, one bad grade means you'll never succeed at anything!” Client: “Wait, that's not true.” That's devil's advocate working."},
+q44:{type:'single',src:44,prompt:"In devil's advocate (reverse role playing), what does the therapist do?",
+ choices:["Argues in favor of the client's irrational belief","Argues against everything the client says","Plays the client's parent","Stays silent so the client argues alone"],ans:[0],
+ why:"The therapist defends the irrational belief so the client is the one who finds its flaws."},
+q45:{type:'single',src:45,prompt:"Clients list their problems, identify absolutist beliefs, and challenge them between sessions. This is:",
+ choices:["Cognitive homework","Bibliotherapy","Shame-attacking","Rational emotive imagery"],ans:[0],
+ why:"Cognitive homework hunts down the shoulds and musts in the client's self-talk."},
+q46:{type:'single',src:46,prompt:"Which is an advantage of bibliotherapy listed in the lesson?",
+ choices:["Cost-effectiveness","It replaces the therapist entirely","It works only for children","It needs no reading"],ans:[0],
+ why:"Advantages: cost-effectiveness, widespread availability, and reaching a broad range of people."},
+q47:{type:'single',src:47,prompt:"In REBT, bibliotherapy is used as what kind of treatment?",
+ choices:["Adjunctive (supporting) treatment","The main and only treatment","A diagnostic test","A behavioral exposure"],ans:[0],
+ why:"It's adjunctive: it supports therapy, it doesn't replace it."},
+q48:{type:'single',src:48,prompt:"A client calls a breakup “the end of my life,” and the therapist helps them see it as painful but also a chance to grow. This is:",
+ choices:["Reframing","Devil's advocate","Rational analysis","Role playing"],ans:[0],
+ why:"Reframing makes the event less catastrophic or finds a positive side in it."},
+q49:{type:'single',src:49,prompt:"Rational analysis has clients examine ___ to uncover irrational beliefs.",
+ choices:["Past situations","Their dreams","Their family tree","Predictions about the future"],ans:[0],
+ why:"Rational analysis looks back at past situations to find and challenge the beliefs at work."},
+
+l16:{type:'learn',title:"Feeling tools (emotive)",
+ body:"<b>Rational emotive imagery (REI):</b> clients vividly imagine one of the <b>worst possible scenarios</b>, describe the disturbing feelings, then train healthier emotional responses.<br><b>Humor:</b> Ellis thought disturbance often comes from <b>taking yourself too seriously</b>. He even wrote humorous songs.<br><b>Role playing:</b> combines emotive, cognitive, and behavioral parts, like rehearsing a grad school interview to challenge “rejection means I'm stupid.”<br><b>Shame-attacking exercises:</b> doing things you avoid for fear of judgment (asking silly questions, wearing attention-grabbing clothes) to learn others are often indifferent. They must be <b>voluntary</b> and <b>never harmful or illegal</b>."},
+l17:{type:'learn',title:"Doing tools (behavioral)",
+ body:"REBT also uses <b>operant conditioning, self-management, desensitization, relaxation, and modeling</b>. <b>Homework in real-life situations</b> is essential, including <b>live exposure</b> and <b>in vivo desensitization</b>, so clients act differently and strengthen functional beliefs.",
+ ex:"Afraid of public speaking? Homework: ask one question in class this week. That's in vivo exposure, the same way Ellis beat his own fear."},
+q50:{type:'single',src:50,prompt:"In rational emotive imagery, clients first:",
+ choices:["Vividly imagine one of the worst possible scenarios","Imagine their happiest memory","Read a self-help book","List their problems on paper"],ans:[0],
+ why:"REI starts with the worst case and its disturbing feelings, then trains healthier emotional responses to it."},
+q51:{type:'single',src:51,prompt:"Wearing attention-grabbing clothes in public on purpose, to learn people are often indifferent, is a:",
+ choices:["Shame-attacking exercise","Relaxation technique","Bibliotherapy task","Devil's advocate exercise"],ans:[0],
+ why:"Shame-attacking: do the thing you fear being judged for and discover others mostly don't care."},
+q52:{type:'single',src:52,prompt:"Which rule must shame-attacking exercises follow?",
+ choices:["They must be voluntary and never harmful or illegal","They must be done in front of the therapist only","They must embarrass the client as much as possible","They can be assigned without the client's consent"],ans:[0],
+ why:"Voluntary, never harmful, never illegal."},
+q53:{type:'single',src:53,prompt:"Why did Ellis use humor in therapy?",
+ choices:["Emotional disturbance often comes from taking oneself too seriously","Humor replaces disputing","Clients pay more attention to jokes","Humor uncovers the unconscious"],ans:[0],
+ why:"Humor shows how absurd rigid beliefs are and helps clients laugh at their self-defeating thinking."},
+q54:{type:'single',src:54,prompt:"Which REBT technique combines emotive, cognitive, and behavioral elements, like rehearsing an interview?",
+ choices:["Role playing","Bibliotherapy","Humor","Rational analysis"],ans:[0],
+ why:"Role playing mixes all three: practice the behavior, notice the feeling, challenge the belief."},
+q55:{type:'single',src:55,prompt:"Which is NOT a behavioral technique used in REBT?",
+ choices:["Free association","Operant conditioning","Desensitization","Modeling"],ans:[0],
+ why:"Free association is a psychoanalytic technique. REBT's behavioral list: operant conditioning, self-management, desensitization, relaxation, modeling."},
+q56:{type:'multi',need:2,src:56,prompt:"Which TWO are emotive techniques? (Choose 2)",
+ choices:["Rational emotive imagery","Shame-attacking exercises","Cognitive homework","Bibliotherapy"],ans:[0,1],
+ why:"REI and shame-attacking are emotive. Cognitive homework and bibliotherapy are cognitive."},
+m4:{type:'match',prompt:"Match each technique to what it looks like",pairs:[["Devil's advocate","Therapist argues for the belief"],["Reframing","Event seen as less catastrophic"],["REI","Imagine the worst, train new feelings"],["Shame-attacking","Do the “embarrassing” thing on purpose"],["In vivo desensitization","Real-life exposure homework"]],
+ why:"Cognitive: devil's advocate, reframing. Emotive: REI, shame-attacking. Behavioral: in vivo desensitization."},
+
+/* ---------------- UNIT 5: Reality Therapy foundations ---------------- */
+l18:{type:'learn',title:"What is Reality Therapy?",say:"New theory! Different guy, different idea. Watch for the switch.",
+ body:"<b>Reality therapy</b> views <b>behaviors as choices</b>. Symptoms don't happen because of mental health conditions but because people <b>choose behaviors to fulfill their needs</b> (Nunez, 2020). The goal: help people <b>accept responsibility</b> and <b>choose better actions</b> that connect them with others. It is a <b>client-centered form of CBT</b> focused on <b>present relationships and circumstances</b>. Key line: <b>we cannot control how we feel, but we can control how we think and behave.</b>"},
+l19:{type:'learn',title:"Choice theory and the five needs",
+ body:"Reality therapy is based on <b>Choice theory</b>: we are <b>not blank slates</b> waiting to be motivated by outside forces. We are born with <b>five genetically encoded needs</b>: <b>survival</b> (self-preservation), <b>love and belonging</b>, <b>power</b> (inner control), <b>freedom</b> (independence), and <b>fun</b> (enjoyment). Reality therapy helps people find unmet needs and make better, responsible choices to meet them (Corey, 2024).",
+ ex:"Made-up mnemonic: <b>“Some Lovely People Find Fun”</b> = Survival, Love and belonging, Power, Freedom, Fun."},
+q57:{type:'single',src:57,prompt:"How does reality therapy view behavior?",
+ choices:["As a choice","As a product of the unconscious","As purely conditioned responses","As caused by mental illness"],ans:[0],
+ why:"Behavior is a choice. People choose behaviors to meet their needs, not because of a mental health condition."},
+q58:{type:'single',src:58,prompt:"Which theory is reality therapy based on?",
+ choices:["Choice theory","Psychoanalytic theory","Social learning theory","Attachment theory"],ans:[0],
+ why:"Choice theory: five innate needs drive behavior, and all behavior is chosen."},
+q59:{type:'single',src:59,prompt:"Reality therapy says we cannot control ___, but we can control ___.",
+ choices:["how we feel / how we think and behave","how we think / how we feel","our behavior / our needs","other people / our past"],ans:[0],
+ why:"Feelings aren't directly controllable, but thinking and behaving are."},
+q60:{type:'single',src:60,prompt:"Which is NOT one of the five basic needs in Choice theory?",
+ choices:["Wealth","Survival","Freedom","Fun"],ans:[0],
+ why:"The five: survival, love and belonging, power, freedom, fun. Wealth isn't one."},
+q61:{type:'single',src:61,prompt:"In Choice theory, the need for “power” also means:",
+ choices:["Inner control","Control over others","Money","Physical strength"],ans:[0],
+ why:"Power = inner control. Freedom = independence, fun = enjoyment, survival = self-preservation."},
+q62:{type:'multi',need:2,src:62,prompt:"Which TWO describe reality therapy? (Choose 2)",
+ choices:["A client-centered form of cognitive behavioral therapy","Focused on present issues and current behaviors","Focused on uncovering early childhood memories","Based on the idea that people are blank slates"],ans:[0,1],
+ why:"It's client-centered CBT focused on the present. Choice theory explicitly says we are NOT blank slates."},
+
+l20:{type:'learn',title:"William Glasser (1925 to 2013)",
+ body:"Born <b>May 11, 1925, in Cleveland, Ohio</b>. In <b>1962</b> he introduced <b>“Reality psychiatry,”</b> renamed <b>“Reality therapy”</b> in his <b>1965</b> book, which educators found especially useful. He <b>rejected the Freudian model</b>, partly because the psychoanalytically trained therapists he watched didn't really apply Freud and instead held people responsible for their behavior. He believed clients must <b>accept personal responsibility</b>. His <b>1968</b> book <b>Schools Without Failure</b> shaped school administration and teacher training. He died <b>August 23, 2013</b>, of respiratory failure from pneumonia."},
+l21:{type:'learn',title:"Robert Wubbolding",
+ body:"Born <b>February 1936</b>, raised in <b>Cincinnati, Ohio</b>, the <b>youngest of six</b>. Doctorate in counseling from the <b>University of Cincinnati</b>. Worked as a high school and elementary school <b>counselor</b> and a consultant for <b>U.S. Army and Air Force drug and alcohol abuse programs</b>. Trained under Glasser in Los Angeles, and in <b>1988</b> Glasser made him <b>director of training</b> for the William Glasser Institute. He extended reality therapy with the <b>WDEP system</b>.",
+ ex:"Quick split: Glasser built it, Wubbolding systematized it (WDEP)."},
+q63:{type:'single',src:63,prompt:"Who developed reality therapy?",
+ choices:["William Glasser","Robert Wubbolding","Albert Ellis","Ray Corsini"],ans:[0],
+ why:"Glasser developed it. Wubbolding extended it with WDEP. Ellis is REBT."},
+q64:{type:'single',src:64,prompt:"What did Glasser first call his approach in 1962?",
+ choices:["Reality psychiatry","Choice therapy","Rational therapy","Control theory"],ans:[0],
+ why:"Reality psychiatry in 1962, renamed Reality therapy in his 1965 book. Rational therapy was Ellis's first name for REBT."},
+q65:{type:'single',src:65,prompt:"Which 1968 book by Glasser influenced school administration and teacher training?",
+ choices:["Schools Without Failure","Reality Therapy","Choice Theory","Learning Without Limits"],ans:[0],
+ why:"Schools Without Failure (1968). Reality Therapy was the 1965 book."},
+q66:{type:'single',src:66,prompt:"Why did Glasser reject the Freudian model?",
+ choices:["Trained psychoanalysts he observed held people responsible instead of applying Freud","Freud's ideas were too focused on the present","He found Freud too behavioral","Freud refused to train him"],ans:[0],
+ why:"He noticed psychoanalytically trained therapists tended to hold people responsible for their behavior, not follow Freudian principles."},
+q67:{type:'single',src:67,prompt:"Robert Wubbolding is best known for extending reality therapy with:",
+ choices:["The WDEP system","The ABCDE model","The quality world","Shame-attacking exercises"],ans:[0],
+ why:"WDEP is Wubbolding's. ABCDE and shame-attacking are Ellis's, and the quality world comes from Glasser's Choice theory."},
+q68:{type:'single',src:68,prompt:"In 1988, Glasser appointed Wubbolding as:",
+ choices:["Director of training for the William Glasser Institute","President of a psychology association","Dean at the University of Cincinnati","Head of a U.S. Army counseling program"],ans:[0],
+ why:"Director of training, overseeing certification and instructor training programs."},
+
+l22:{type:'learn',title:"Needs and the quality world",
+ body:"The <b>five innate needs drive all human behavior</b>, and <b>love and belonging is primary</b> because it's essential for meeting the others. Each person builds a <b>quality world</b>: a mental image of their <b>ideal world</b>, their <b>personal Shangri-la</b>, at the core of their life. It holds specific <b>people, activities, beliefs, and possessions</b> that meet their needs, like an <b>inner picture album</b> of wants and ways to satisfy them."},
+l23:{type:'learn',title:"Choices and relationships",
+ body:"<b>All behavior is a choice.</b> People choose behaviors they believe will meet their needs and bring them closer to their quality world. <b>When people feel bad, it's because their choices aren't working.</b> <b>Strong, positive relationships</b> are essential for meeting needs and being happy, so therapists teach effective communication and problem-solving skills.",
+ ex:"Lonely while scrolling alone at 2 a.m.? Choice theory says the choice (scrolling) isn't meeting the need (belonging). Time for a better choice."},
+q69:{type:'single',src:69,prompt:"Which need is considered primary in reality therapy?",
+ choices:["Love and belonging","Survival","Power","Fun"],ans:[0],
+ why:"Love and belonging is primary because it's essential for fulfilling the other needs."},
+q70:{type:'single',src:70,prompt:"A person's mental picture of their ideal world is called the:",
+ choices:["Quality world","Comfort zone","Ideal self","Life space"],ans:[0],
+ why:"The quality world: your personal Shangri-la of people, activities, beliefs, and possessions."},
+q71:{type:'single',src:71,prompt:"Which is NOT part of a quality world, according to the lesson?",
+ choices:["Repressed memories","Specific people","Activities","Beliefs and possessions"],ans:[0],
+ why:"The quality world holds people, activities, beliefs, and possessions. Repressed memories are a Freudian idea."},
+q72:{type:'single',src:72,prompt:"According to reality therapy, why do people feel bad?",
+ choices:["Their choices aren't working to meet their needs","Their parents raised them poorly","They have a chemical imbalance","They hold irrational musts"],ans:[0],
+ why:"Reality therapy: bad feelings mean the choices aren't working. “Irrational musts” is the REBT answer, a different theory."},
+q73:{type:'single',src:73,prompt:"The quality world is described as a person's personal:",
+ choices:["Shangri-la","Fortress","Safe house","Hall of fame"],ans:[0],
+ why:"Personal Shangri-la: the world we would like to live in if we could."},
+q74:{type:'single',src:74,prompt:"Why do reality therapists teach communication and problem-solving skills?",
+ choices:["Strong, positive relationships are essential for meeting needs","To help clients win arguments","To diagnose mental illness","To replace action planning"],ans:[0],
+ why:"Healthy relationships are how most needs, especially love and belonging, get met."},
+m5:{type:'match',prompt:"Match each need to its other name",pairs:[["Survival","Self-preservation"],["Love and belonging","The primary need"],["Power","Inner control"],["Freedom","Independence"],["Fun","Enjoyment"]],
+ why:"Some Lovely People Find Fun: survival, love and belonging, power, freedom, fun."},
+
+/* ---------------- UNIT 6: Reality Therapy process ---------------- */
+l24:{type:'learn',title:"Goals and the therapist's role",say:"Last unit! Finish strong.",
+ body:"<b>Main goal:</b> help clients <b>connect or reconnect with people they value</b>, meeting the need for <b>love and belonging</b>. It also helps meet needs like achievement, power or inner control, freedom, independence, and enjoyment, which serve as <b>blueprints for short- and long-term goals</b>.<br>The therapist builds <b>involvement and rapport</b> through <b>empathy and active listening</b>, asks thought-provoking questions that push <b>self-evaluation</b>, and guides clients to <b>assess their own</b> behavior, wants, perceptions, and plans <b>rather than evaluating them directly</b>. They <b>instill hope</b> that change is possible and act as advocates."},
+q75:{type:'single',src:75,prompt:"What is the primary goal of reality therapy?",
+ choices:["Help clients connect or reconnect with people they value","Help clients uncover unconscious conflicts","Help clients dispute irrational beliefs","Help clients get an accurate diagnosis"],ans:[0],
+ why:"Connecting with valued people fulfills love and belonging, the primary need. Disputing irrational beliefs is REBT."},
+q76:{type:'single',src:76,prompt:"In reality therapy, who evaluates the client's behavior?",
+ choices:["The client, guided by the therapist's questions","The therapist, directly","The client's family","A psychiatric diagnosis"],ans:[0],
+ why:"Therapists guide clients to assess themselves rather than evaluating them directly."},
+q77:{type:'single',src:77,prompt:"The therapist builds involvement and rapport mainly through:",
+ choices:["Empathy and active listening","Interpreting dreams","Prescribing medication","Strict confrontation"],ans:[0],
+ why:"Empathy and active listening create the involvement that the rest of therapy needs."},
+q78:{type:'single',src:78,prompt:"In reality therapy, the client's needs serve as:",
+ choices:["Blueprints for short- and long-term goals","Symptoms to diagnose","Evidence of mental illness","Rewards for good behavior"],ans:[0],
+ why:"Needs are blueprints for setting goals, both short- and long-term."},
+q79:{type:'single',src:79,prompt:"Which attitude should a reality therapist keep?",
+ choices:["Optimism and hope that change is possible","Neutral distance from the client","Low expectations to avoid disappointment","A focus on past failures"],ans:[0],
+ why:"Therapists maintain optimism and instill hope, no matter the circumstances."},
+
+l25:{type:'learn',title:"What makes it different, part 1",
+ body:"<b>Emphasize choice and responsibility:</b> clients have more control than they think. This is <b>not blame or punishment</b>, but clients are accountable, and they act <b>“as if”</b> they have options. Meaningful activities like work help meet needs.<br><b>Reject transference:</b> therapists stay authentic. If a client says “I see you as my father,” Glasser answers <b>“I am not your mother or father. I am myself.”</b><br><b>Keep therapy in the present:</b> the past may influence current problems but is <b>never the problem itself</b> (Glasser, 2001). Past successes can be acknowledged, but little time goes to past failures."},
+l26:{type:'learn',title:"What makes it different, part 2",
+ body:"<b>Avoid focusing on symptoms:</b> symptoms are <b>signals</b> that current behaviors aren't meeting needs. Most symptoms come from <b>unhappy present relationships</b> (Glasser, 2005).<br><b>Challenge traditional views of mental illness:</b> Glasser warns against overreliance on diagnoses and <b>psychiatric drugs</b>. Wubbolding supports using the <b>DSM-5 creatively</b> and calls reality therapy a <b>mental health system, not a mental disorder system</b>. Erickson: <b>“people don't have problems, they have solutions that haven't worked.”</b>",
+ ex:"Five traits hook: <b>Choice, No transference, Now, Not symptoms, Not illness.</b>"},
+q80:{type:'single',src:80,prompt:"A client says, “I act this way because I see you as my mother.” A reality therapist would most likely say:",
+ choices:["“I am not your mother or father. I am myself.”","“Let's explore that transference in depth.”","“Tell me about your childhood with her.”","“That must mean you have a disorder.”"],ans:[0],
+ why:"Reality therapy rejects transference. The therapist stays authentic and present."},
+q81:{type:'single',src:81,prompt:"How does reality therapy view the past?",
+ choices:["It may influence current problems but is never the problem itself","It is the main focus of therapy","It is ignored completely, even past successes","It explains all current symptoms"],ans:[0],
+ why:"Glasser (2001): the past can influence, but it's never the problem. Past successes may still be acknowledged."},
+q82:{type:'single',src:82,prompt:"According to Glasser (2005), most symptoms come from:",
+ choices:["Unhappy present relationships","Childhood trauma","Brain chemistry","Irrational beliefs"],ans:[0],
+ why:"Unhappy present relationships. Irrational beliefs would be the REBT answer."},
+q83:{type:'single',src:83,prompt:"Wubbolding views reality therapy as a:",
+ choices:["Mental health system, not a mental disorder system","Mental disorder system","Medication-based system","Purely diagnostic system"],ans:[0],
+ why:"Wubbolding (2017): a mental health system, not a mental disorder system."},
+q84:{type:'single',src:84,prompt:"In reality therapy, symptoms are treated as:",
+ choices:["Signals that current behaviors aren't meeting needs","The main target of treatment","Proof of mental illness","Unconscious defenses"],ans:[0],
+ why:"Symptoms are signals. Therapy focuses on current problems, especially relationships, instead."},
+q85:{type:'single',src:85,prompt:"Emphasizing responsibility in reality therapy means:",
+ choices:["Clients are accountable for their choices, without blame or punishment","Clients are punished for bad choices","The therapist takes responsibility for the client","The past is blamed for the client's behavior"],ans:[0],
+ why:"Accountable, yes. Blamed or punished, no."},
+q86:{type:'single',src:86,prompt:"“People don't have problems, they have solutions that haven't worked” comes from:",
+ choices:["Erickson","Glasser","Ellis","Wubbolding"],ans:[0],
+ why:"It's Erickson's principle, which reality therapists draw on to reframe negative behaviors and labels."},
+
+l27:{type:'learn',title:"Seven techniques",
+ body:"<b>Self-evaluation:</b> does my behavior match my goals?<br><b>Action planning:</b> simple, measurable, realistic plans for immediate change.<br><b>Reframing:</b> restate problems in a more positive, solution-focused light.<br><b>Behavioral rehearsal:</b> practice social behaviors in session.<br><b>Commitment to change:</b> commit to the plan.<br><b>Avoiding excuses and blame:</b> focus on what you can control.<br><b>Ongoing review:</b> keep checking progress and adjusting the plan."},
+l28:{type:'learn',title:"WDEP and SAMIC",
+ body:"<b>WDEP:</b> <b>Wants</b> (what the client truly wants), <b>Doing</b> (current actions), <b>Evaluation</b> (are those actions working?), <b>Planning</b> (specific, attainable steps).<br>Self-evaluation questions: <b>“Is what you're doing helping or hurting?”</b> “Is your behavior working for you?”<br>Plans follow <b>SAMIC</b>: <b>Simple, Attainable, Measurable, Immediate, Committed</b>.<br>To build commitment, ask <b>“What are you willing to do today to start changing your life?”</b> and explore <b>fears of failure</b>.<br>Takeaways: change starts with <b>honest self-assessment</b>, <b>insight alone is not enough, action is necessary</b>, and clients shape their own destiny.",
+ ex:"Want: better grades. Doing: gaming till 3 a.m. Evaluation: is that working? Plan: study 30 minutes tonight before gaming. Simple, attainable, measurable, immediate, committed."},
+q87:{type:'single',src:87,prompt:"What does WDEP stand for?",
+ choices:["Wants, Doing, Evaluation, Planning","Wishes, Doubts, Emotions, Progress","Wants, Decisions, Effects, Practice","Work, Duty, Effort, Purpose"],ans:[0],
+ why:"Wants, Doing, Evaluation, Planning: Wubbolding's system."},
+q88:{type:'single',src:88,prompt:"“Is what you're doing helping or hurting?” is a question that promotes:",
+ choices:["Self-evaluation","Transference","Free association","Disputing"],ans:[0],
+ why:"It's artful questioning to promote self-evaluation. Disputing is REBT's move."},
+q89:{type:'single',src:89,prompt:"In WDEP, which step asks whether current actions are working?",
+ choices:["Evaluation","Wants","Doing","Planning"],ans:[0],
+ why:"Doing describes what you do. Evaluation judges whether it's working."},
+q90:{type:'single',src:90,prompt:"What does the I in SAMIC stand for?",
+ choices:["Immediate","Insightful","Independent","Intense"],ans:[0],
+ why:"Immediate: start as soon as possible. Insight alone isn't enough in reality therapy."},
+q91:{type:'multi',need:3,src:91,prompt:"Which are part of SAMIC planning? (Choose 3)",
+ choices:["Simple","Measurable","Committed","Complicated"],ans:[0,1,2],
+ why:"Simple, Attainable, Measurable, Immediate, Committed. Complicated is the opposite of Simple."},
+q92:{type:'single',src:92,prompt:"A client practices asking a classmate for help during the session before trying it for real. This is:",
+ choices:["Behavioral rehearsal","Ongoing review","Reframing","Commitment to change"],ans:[0],
+ why:"Behavioral rehearsal: practice the social behavior in session to prepare for real life."},
+q93:{type:'single',src:93,prompt:"Which is a key takeaway of reality therapy?",
+ choices:["Insight alone is not enough, action is necessary","Insight alone is enough to change","The therapist shapes the client's destiny","The past must be fully understood first"],ans:[0],
+ why:"Change starts with honest self-assessment, then action. Clients shape their own destiny."},
+q94:{type:'single',src:94,prompt:"To strengthen commitment, reality therapists explore the client's:",
+ choices:["Fears of failure","Dreams","Childhood memories","Diagnosis"],ans:[0],
+ why:"Exploring fears of failure strengthens commitment to the plan."},
+m6:{type:'match',prompt:"Match each piece of WDEP and SAMIC",pairs:[["Wants","What you truly want"],["Doing","What you're doing now"],["Evaluation","Is it working?"],["Planning","Specific, attainable steps"],["SAMIC","How a good plan is built"]],
+ why:"WDEP finds the gap between wants and doing, and SAMIC makes the plan doable."},
+};
+
+/* UNITS */
+const UNITS = [
+ {n:1,title:"Ellis Island",sub:"Where REBT came from",color:"#58CC02",shade:"#58A700",
+  guide:[["REBT","Albert Ellis, mid-1950s, the first CBT"],["Psychoanalysis gripe","Too focused on past and unconscious, slow"],["Realistic optimism","Face the negatives, focus on the constructive"],["Stoic roots","Beliefs about events cause distress"],["Name path","Rational → Rational-Emotive → REBT (Corsini, 1994)"],["LAMP","Love and Marriage Problems Institute, 1940s"]],
+  tip:"<b>Heads up:</b> the notes say REBT was developed in the <b>mid-1950s</b> in one part and introduced in the <b>late 1950s</b> in another. Go with mid-1950s unless your teacher says otherwise.",
+  lessons:[
+   {id:'L1',title:"Meet REBT",items:['l1','l2','q1','q2','q3','q4','q5']},
+   {id:'L2',title:"Ellis's Story",items:['l3','l4','q6','q7','q8','q9','q10']},
+   {id:'L3',title:"Roots & Renames",items:['l5','l6','q11','q12','q13','q14','q15','q16','q17','m1']}]},
+ {n:2,title:"Must-urbation Nation",sub:"Human nature & irrational beliefs",color:"#CE82FF",shade:"#A568CC",
+  guide:[["4 views","Responsibility, rational vs. irrational, growth, holistic"],["Source of beliefs","Significant others in childhood"],["Kept alive by","Our own autosuggestion and self-repetition"],["3 musts","About me, about others, about the world"],["USA / UOA / ULA","Unconditional self-, other-, life-acceptance"],["Disputing styles","Logical, empirical, pragmatic"]],
+  tip:"<b>Spot the irrational belief:</b> look for “must,” “should,” or “ought.”",
+  lessons:[
+   {id:'L4',title:"Human Nature",items:['l7','q18','q19','q20','q21','q22']},
+   {id:'L5',title:"Shoulds & Musts",items:['l8','l9','q23','q24','q25','q26','q27','q28']},
+   {id:'L6',title:"Goals & Roles",items:['l10','l11','q29','q30','q31','q32','q33','q34','m2']}]},
+ {n:3,title:"Easy as ABCDE",sub:"The core REBT model",color:"#1CB0F6",shade:"#1899D6",
+  guide:[["A","Activating event, adversity, or inference"],["B","Belief, the real cause of C"],["C","Consequence, healthy or unhealthy"],["D","Disputing: detect, debate, discriminate"],["E","Effect: new effective rational philosophy"]],
+  tip:"<b>Trap:</b> A does NOT cause C. B does.",
+  lessons:[
+   {id:'L7',title:"A, B, C",items:['l12','q35','q36','q37','q38']},
+   {id:'L8',title:"D and E",items:['l13','q39','q40','q41','q42','q43','m3']}]},
+ {n:4,title:"REBT Toolbox",sub:"Cognitive, emotive & behavioral techniques",color:"#FF9600",shade:"#CD7900",
+  guide:[["Cognitive","Rational analysis, cognitive homework, bibliotherapy, devil's advocate, reframing"],["Emotive","REI, humor, role playing, shame-attacking"],["Behavioral","Operant conditioning, self-management, desensitization, relaxation, modeling"],["Shame-attacking rule","Voluntary, never harmful or illegal"],["Homework","Real-life practice keeps the gains"]],
+  tip:"<b>Sort it fast:</b> thinking = cognitive, feeling or imagining = emotive, doing = behavioral.",
+  lessons:[
+   {id:'L9',title:"Thinking Tools",items:['l14','l15','q44','q45','q46','q47','q48','q49']},
+   {id:'L10',title:"Feeling & Doing Tools",items:['l16','l17','q50','q51','q52','q53','q54','q55','q56','m4']}]},
+ {n:5,title:"Get Real",sub:"Reality therapy & Choice theory",color:"#FF4B4B",shade:"#EA2B2B",
+  guide:[["Core idea","All behavior is a choice"],["5 needs","Survival, love and belonging, power, freedom, fun"],["Primary need","Love and belonging"],["Quality world","Mental picture album of your ideal life"],["Glasser","Reality psychiatry 1962, Reality therapy 1965"],["Wubbolding","Extended it with WDEP"]],
+  tip:"<b>Don't mix them up:</b> Ellis = beliefs (REBT). Glasser = choices (Reality therapy).",
+  lessons:[
+   {id:'L11',title:"What Is Reality Therapy?",items:['l18','l19','q57','q58','q59','q60','q61','q62']},
+   {id:'L12',title:"The Proponents",items:['l20','l21','q63','q64','q65','q66','q67','q68']},
+   {id:'L13',title:"Needs & Quality World",items:['l22','l23','q69','q70','q71','q72','q73','q74','m5']}]},
+ {n:6,title:"Choose Wisely",sub:"Reality therapy process & WDEP",color:"#FFC800",shade:"#E5A500",
+  guide:[["Goal","Connect or reconnect with valued people"],["5 traits","Choice, no transference, present, not symptoms, not mental illness"],["WDEP","Wants, Doing, Evaluation, Planning"],["SAMIC","Simple, Attainable, Measurable, Immediate, Committed"],["Takeaway","Insight is not enough, action is necessary"]],
+  tip:"<b>WDEP order:</b> figure out what you Want, look at what you're Doing, Evaluate it, then Plan.",
+  lessons:[
+   {id:'L14',title:"Goals & Role",items:['l24','q75','q76','q77','q78','q79']},
+   {id:'L15',title:"What Makes It Different",items:['l25','l26','q80','q81','q82','q83','q84','q85','q86']},
+   {id:'L16',title:"WDEP & SAMIC",items:['l27','l28','q87','q88','q89','q90','q91','q92','q93','q94','m6']}]},
+];
+const ALL_LESSONS = UNITS.flatMap(u=>u.lessons.map(l=>({...l,unit:u})));
+const REAL_IDS = Object.keys(ITEMS).filter(k=>ITEMS[k].src);
+const RT = CONFIG.realTotal || REAL_IDS.length;
+
+/* ============================================================
+   STATE / STORAGE
+   ============================================================ */
+const KEY=CONFIG.storageKey;
+let S = {xp:0,streak:0,lastDay:null,done:{},mistakes:Object.keys(ITEMS).filter(k=>ITEMS[k].missed),sound:true,bestBoss:null};
+try{const raw=localStorage.getItem(KEY); if(raw) S={...S,...JSON.parse(raw)};}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const today=()=>new Date().toISOString().slice(0,10);
+function bumpStreak(){
+  const t=today(); if(S.lastDay===t) return;
+  const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  S.streak = (S.lastDay===y)? S.streak+1 : 1; S.lastDay=t;
+}
+
+/* ============================================================
+   SOUND
+   ============================================================ */
+let AC=null;
+function tone(seq){
+  if(!S.sound) return;
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    let t=AC.currentTime;
+    seq.forEach(([f,d,type='sine',v=.15])=>{
+      const o=AC.createOscillator(),g=AC.createGain();
+      o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);
+      o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d);t+=d*.7;
+    });
+  }catch(e){}
+}
+const sfx={ok:()=>tone([[784,.12],[1175,.25]]),no:()=>tone([[220,.18,'square',.06],[165,.28,'square',.06]]),
+  tap:()=>tone([[600,.05,'sine',.05]]),win:()=>tone([[523,.12],[659,.12],[784,.12],[1047,.4]])};
+
+/* ============================================================
+   SVG BITS
+   ============================================================ */
+function mascotMarkup(){return `<div class="mascot" aria-hidden="true">
+  <img class="m-norm" src="data:image/webp;base64,UklGRkweAABXRUJQVlA4WAoAAAAQAAAA/wAA/wAAQUxQSDoKAAABsIVts2k7Vt1sxs6JrUbatm3btm3btm3btt2dHTbj7D2r6nm+g42FMWvenSciJkD+P9juPeoKXJ897nz3m28+evL8rUYVs0On0vbsV/fvU7g6PwFZpmaqmQJN540oVo2vkTltuyrMPK2hSD1DRgc9g8+WLk4X00LHPWP+dkVpMzIrASjsVIx6T0IprbFg8UJ0JxmlVp4oQptjlNxpnliAvigHyiHFZ0ucslxQfF7EynNu4VlZnfLsVXgeQcvC7JFFZ+nMvBzKdVJ0L6KFMhpTBxSdhm+xcrhvJEV3HYwyGgdK4b2YljIYZ0rx/QgtnXGpFN+Fm/GSKddJAd6NjFJnvCCFs7a+ob5DN5Qu4+texaFh/Np7X3DbU2989Nlnn7z77J2XHLDh0j3beActkfLLKCmGDcsdcfdXs+lw9stDe40Tkf6/46VRZiwqRXDIDjd9aQBuam2qqjrAvHfPnjAxo7Tm81eRutbqByy64V6HnHLJlVdccs4JB+2yzoQ+Yeqz8xN/Aqg6JXQzoPkzK40rO0qtiAzc+NxHP/l9Ae2f3/Tmzfsu0yU+S187FVA1p/RulFo5QURG7PP4DFp1ay+tZt/dsduI0GzxjIKqU3YvjXGNDNjvuX8AUzV3OuimCvD3C4ePjcoGrwLqVKvz9a43TANUndKbGjD3kfUjsumrYEZV/w6oOmU3A97Zv08w1n0d3Kh6o1LNYeq5gwPR+2ZwI1fd4I8ze0dhq0m4kb8GTXuHoPNNoOSzwstL5N/ErzAjt43mI0Vqcm2j2WTkucGjAyXPjwUj55Xp2+bXgPtxJ/cVrqvNqW2mokTQjZe75VHjjaAEMePDnvmz9BeoEUblw+55s9dcMiKpvN0tV+pvBCWWyntdc6TXO6gTTeWZ/Oj3KRkBVY7MixFfo0TU+b1/Pgz9CSWmxqm5MOg7MoLq/Ng5B/p9gxJWZ+MceIuMuCpnpu98MgJrXJ+8Vd0odh8TndNTdyRKaJ0tE9d7Ch4b/hqYuANRQqvcJIl/CQuNM39M4npPwSNjzqGS+LGzI2MGR0vqR88Mi6vByytI8rv/ikXEFOC1DSUPHyWLCDR/e9N6ko+bkHk87M49l26U3LyJlnA4D0mu3g0aDOCzMVKTH3JGC5iaA+5mpgFQpq4jeTrx5hn8rzutquUeCgfmiciAba9+e8qczHTmL+/ctucFzfmHOafkyv/2Hb34csuM/VejbPA7EXTl+Lxpe1/wCODKYTlUUyvH4UoM3dgtf0QuxJwourNH/pyBEUh3dsqXGtkfJZRO88p5UiOrNRvBNJoG5IiMmUI4UF7NkR6fkxFP5dzcqHmFjIgaG+XFlSghdSb1zYdNUYJq3JsL3X7Do4KxUx5ciRFWZ0rf9G2gTmCNy5PX8zdCA/MmpO4ilNAatyZu7Bwnus1LpO1eNDrGw0lbyc2jA7pcyp5DCa9xR8LWw4nwnLHpehKLkHFSshZpJsTO53WpOgsLEc5Gier0DUFWbkvUtniQnMm90/QyFiSczZK0WAthNq5M0tFkYXI+rUnR42iYYN7YBPWdisfJ2SZB26DE2bgwQXeTBcp5LT2dv8cCBZP6JGfCfDxU2cTkbI4SaWeT5JwcLOOw5NwXrouT8w4WrPtT07uJWDtvpmZ8S7i+qE3MyoTrh86J2QqPFfzaKzH7YNGaNjAxR8TrzxGJOQWN1swxiTkPi9assYm5qPBdGq+/RybmknhNG5SY86LlNPVNzMnx+qFLYg5Do/VFXWK2x6L1hiR2bYJtPJiaxSxcV6Vm2OxwHZ+abj8Fy9kmNfI6HipYLjm3obH6fVByDouV83FNclbBI2XcLcntNx0PlHJceuQVLFCwQYLORyM1a1iCNsPi5LwvCR4+Ew+TcmWK5EMsTMYWSTqPLErOHwOSdA0aJZi9fIoOwAizM2l4ejZQ9zhhfNSQmqVmYkRaeSwx/X7BiLVyfVqeRom2cXRKLiIj3m7rpmN3lIAbTf1TMXEWHjGURxLR7WuMmBtHpuEBlKj7/KVSsA9G2I0Pa6pv+J9EXjm7+p7AIofpatW2L0rs+LS+ukb/g8cO5Yzqegwj/HMXqqZNccJvPFRFDZ9j8cNZo3oOwyiAxnNV0/M3vAjgvka1HI5RCI0nqqTzd3gxAFu+OnbGKYjGzdXxDFYU4PdB1TB2FsXR2L0aDkKLxEPV8FiRcCb1qbyev+DFAWzJyhs3jyLpbF55K1MojX0qb328SCiHVt4mxcI4uPLWLxo7V97KFMx1K2/8vGKhEyuv+494kWjqW3nyGFYcjGekCg8sEs5e1TDkTwqjM6lnNciVWCV4/plXgHGSVOWwv6hAI4JWPn7tXh1yFFoug/d/xPOt5fCvcCuTs4VU68tkZTFYcJasj+WZcYl0vxLMy2GcJlXb4yO0dO5w5zgROR/NL+OrBhFZ+XUwL5UbF0kVd3sWrDQKPL6CtPoimlvMW0Ja3f4bUCuJwjlS3WcYZh0yB15eV9ocMAXPKWMXabNuv28Bsw64wpStpdqXfxMwM3fc3dQAply/qrR3IyyflMulvQ1bPT4fcFVzdzczYPYlfSWBWz4zh/ZPvWPLntLBM9E8Ul6Ujo4/6sV/aPePF44UqUmAyMjtL3n2y0mTf/3uoxdvPnzVXlLCx9D8Mb7u2SERGbzBkdc8+eYHH771xFUHL99ZklrXtXvXRil53atkeWNMGSGRbHyXLF+MWUtJLHt/SpYnRvOGEs3+X6L5YeimEs/+X5LlhWFbSUT7f0GWD8rsDSSmvd9A80CZtoxEtfZ2clD5fKQE9lDFE+c8011Cu+pkLGUG50h0h7wIlizj980lwMfMJNEOb4yUEI95JFHMPUFiXCNyWIqc9xaWKNfKEilS9pe6KIms7AkyDpFAL2dJ2j9Si8xP0u6RGjsnQc6WkRo2K0GweqQG/JWibPFI9fglRXNGRKrmPbwy1MxMvUKa+kRKHscqo5KdNyTUt6AV4Hxz9Mmnnnb6MY/iFWDcFKuTsQow7pBWN8Aq4rBYbV0hl0udSK2sQiU6G8VqYjMVcZi0OuSvSmDO6Fh1/gEvH2zUWu3neNmcj2tiJfdgFTB7eGtyL1o25TIJ9m4VYLwnbR5eAc7G0Roxi7IrF7e1HBU4vV+05AmsXM4GbdV/j5fJuFPCvR1eJue3Lm3J5WiZYP14NX6Ll8e4QNq5AmU2PpCA74mVh98HtkeeRMvibBcxeR0rh3KctHvJFvMyGK9JyJec72Uwvu3UPjmPrAwsWCZmcgxZyZxsRelgzdtkJVOOlKg/QFYig92kw4N+QkukXCthr3sct1Io7C0lHPMrWSncuVYify6od8Tgh7WkpMPeBe2IK5whsV/vKzA1b81Vgeu7S4lrz2oGtbZcHb7dTKLfeNTPAKaqDjD/4VWkjIs/MA/ATY3//faILlIAu+5w708L+N/m3548coKUedyxL01tAfCZX9y0aaMUxS7jN9x1v902Wri7VGTvRdbafOtNlx9SL/8fM1ZQOCDsEwAAMGIAnQEqAAEAAT5pLpJGJCKhoS1z6xiADQlibuDAzGPSoz/E7JDxHj/yo/Mr54LJ/cPwx+U/yt8f5FHrp76/wfuj+YXoY8wP9TP+R/Zeth9GfwD/bP9wvd4/2X7b+9D+8fjv8AH9U/zH//7DP0CP3E9N39tfhP/rP+6/an2n///2anR/9iv8R3D/7T8lpRtkA2luDuk1mt+RvUU6aX7VezMjqQHKxONcCgm1MSeHWX7m3HoHhetVPsiFs8ds0ljgZPv8QoK031IgJXYpmhDNIdHpGTrJBCtrywZHhUeVQDYNVCbdimyxBNPDOhuzYJJagnqxg1j2hVN+ITbpjr1wcDXzPSMkyfLf1B+XTScMAwEBYP34pRfTiX5PbZ841WXmOwfg//8pSNWZK3Zd5s2HCfv9AqTFTo7mvdHQQGVjoRUnXrvcfc48UAO45Zrd3uNZOgRq1Jvkl1T//yn0JDCKiCSR+/PPeT4aCLWAh2iwzu+36wESbBrH+QpdFgJUL3r/OYF84D707WMoiPLRBXf8ReXWuvAnDpYU9hDs6bLL+kwto0CxRYdCQtP32KV0Aw7yC1QXl+rzHnCPa/ZgDWoZlaDGZLv95i6/3lojKUW/mk19mvEMyBvE2m5hSI9a6O8d/HV/yZ7mOCm+k5qN1o+t+npxK7bQ2hAASh6ENJPkZPqlpGM4tf6rPLIuB5cOyic6tSobqIROXfql44WTcf7RwjPluD0J8NLs7CGp967gKFPCEya4OU4Z32ydt10HoW1p34AscqcUc1JYPxDI4N/l5HxFaQ6PlfA76mY2hL2VzAuy/BJIOlP0WrzxvWUKspdGlssZqw08hRs1EAs6LRG3W4pFKb5X60csxUN/OjM9RIDcBLzdczK36VqQCu3kkXZpaxblF0rgrEfwhv/7k2fwOhQmjbSbcuJfPrk1oUFKwkB3F3CuKUqxuvV8fPHBJpkoJoKy9cwEPm+Rkkcz5RabY4UGva7f6eEOYQboeRP1Kz7yOdoNDytGSczEgtnZPB2T0bh+tblb2Lro/+amXodEVY1H+RMqtMEI6gAA/t8lgARXx+yhUW+knBwRdyAZ79Wf3RuCQ0RBK3uyBqf2FSQuWaUYGj//z6rhmK3WX4wMFcrlsgPhmBuPxhDmwCGEl5ZvcltceU5Lsz0HLAAetq3vAK67r2FtkhxgI1ih7qlK5ebmVsDLdKPThZC+lpWZu+PfxuOGAtbmqi11C74Uj5hszEZvbXmPXB18lmCOQxjVLthTN7ZN+IyvWXBFUXsCR+nFGV2EwXar61csFPZuj2vCazEaep0+PjGKbtnIGq9RYhm+/nll8Kqh4z0B0En0tcNYDeDQx8Ys4MxWMfuh4a1iBcwzOLujorcQJZ5w2QUBpLSbHnnYC+kCxrjn/ozmriyDLnYVkVjYY1R5MTKh/uvK/SPGJlWYZyxHTDRiS39XVUuY0PRlcpXVj0xn46Tbbok++1VMhRPzzK3ViyB6VEdCqImE/ILcaisTymC0Ak9HykBkyuoXZFAbJITTVF4jFvZE4xRY82aC36tUNAH2uvC9RkxhD1niGSgq4pen9+g0Aa//dMIKg5mDtRtAROCxXYgkxW8VkdgSMhb8PTaD4gYxEuXxN+lMb6zYkH+JbX5bRQZZPp6L6LHnL5i3yUCtzaSAOgCyCCDlBFUen14g4g0/fkO8pzGanMCYoYBfOM7ebjjXg1Z5I2T69wOmg2tU5TugnvdA9ca/FtIjJQ3OBJ+hslwUXf6feKZLL2Y5122yjiGEXgmHCNXYTL8pQjIX/BY1cYm6ctuuquE8IP1rmO0COkz59e8vxELDHY/6CkXOltUFCHaxtrfSvnYjaZlViiRUMKzzryBHbmSRrD1/QPL0A6wAp7IHr9ewLg4XB5lJtwszdTEl3S0zBdlUUFyCUQO+VdU6wzy0P8gMSj7D3IoJfojQqVwDh7/x33mRzJswx1Nch3yiJhMbPi0DkcYGbzC2lX7zlvYW8jo7NM/unQHNFCno14d8p+EFusCYbUcH5c+imQ+SMRpGam5vmEyiZJ2UF+pOCR5LGHZQKMX4zuNiDteZQdZUKE9Mb4QpkrIEgdwqQH1DbmmXLXY0ez/JW22JXmPr9a7YHem31jZCzU907gwgxrtzkmFBiEEgGJBsdubMMNJqOO9WjeDBOwR95eYt/yJNIPFT4MDFXNmj0u6/C3jhILgRvvEeFNaC9buXn2tcGlDR/QRObFNijZ/5RG5RVroVnOuyJaMqMKfuGCtj2tRvQP5Q92w48jMZZx4dFckQq3zTyqLWBPeskHd9RPvRvlytGZ0GLzM1sZreFH2NNEEKe8q2X26vWtIaB8DosTbDf3PjSuGW9C442Cu7Jv2jTICD2q68d/1tYCouN+72lHtDz67+R+yjk5iO6J1VqwoDs6+dFG63PZx9y+4Uwc7YboKnAsHQ/WA0esnfYAh0+uvjv2tX4WoBaruVC4mG4xMKxdauF3NZsR/Q4AAtEflESZPwSy8vH3vmr2f5fiigKANot95Pcav6uVqo9DgeOpTPJy4AFFlBQn0jGY9xB3Gyq6EGXf3s8owzE6KivWtB3PI0JqJBDyYQvMiStZO0IgMiYQAFdeer/E3zRCQWX/sDmpgE9MRK75kj79TKJpQjoZNVVVEyUOKOpV5DM/vjZeND3KcRWx8oICaGjswauYY2Ic+lMNJbKjz7OT96csYF9Af6IBwhEfGDGlW7uLM2JcF5ya5qQhIbG4H/0zi6XQuP8EUaEng8Ecx2ARefyTCbksnEjYNX1imH21lvMTGMdAC+uN8kIjbHMI05h8T6Z0tgi4vGBZpzuUTAQxmSbRUP3CKgO9HFQX/BZY2DsxNz2oLkqJ3eAJeAEwpnZEN6dGG8hML6zCv4w9GA9WllauMtBvt1+G8mO3DXwKDNn3jlY2wvUO6Pxt+/5K6soMMqTvFbBwTkUUI+xSuWdIcrvXP1UdeZ6tzywlGXX9DW+i4em179ASqoDmk6+JL7SQh+pAWVsYF4K3w5laYOU1Qt6Gv1p37vdSBzzdlvCOIS6+bMIC84h6Cp45xCMn910TMDkwfX/xI0GDQEhe0rgsbjW/+EckXp2SiLBPCa77c65iQUOqPkTz38OkjAimKk9821eYj9+lcB8peWwVITCATcB/C4P+xEXaFluPGRHCCisuBCQZnytc+nC2RsGPjbWfKsQOmKkINPoA9pFpZfw+mn0PqD3vhZaBqpSZnYXgSi6tOJRM9m4qMsBUyqI2EYDM2CpJNesrnZTziCTAZh3OR+EjfN2ZZvKyvXhoQ7TK6GLgA83fa6I/+aw2z1XX3dtNqrBjqd1QjzD0RCPB2GtYwcOjq8xbUt9Ydq2d1Q6gz1mPTOJ9ZAw89DZie/Qp5X56MJFL8H1qWQpqvKEZkiOMc93kpUgR3S68znZxdti3OSk4i0TFvTgDQAoVacKBRa+x8ALARvfGtiYEUlamqWY0AMBpy1/NpOZBuhmXtyGtOzMS/7xJMGvWJaQKQRmPwgpjxDgUuzcUytip5R6i7qb5GokPkxyfa83cOzpu2ZNET224WYMuk/wg6bZwFGdKnMHeqfjA6fexuGuYjXXvL2w9QpzQFv09nXC3Uv9Que+Yi1MFnRzyvSiRbxkiLQPiGhq2pep7zwyv4uy986/uIc4m/+lyYO+soCmS8fA8+68GxmssYQPrjA6VkRxrq9y7I1qXocCUDsbrxevoL200vFaWFpu14wu5CrrREphTglL9Kapu8sP1uyGrvFXXfjbk9wvtU/8y4qqg8k81Y2tFxoac59JvhP0j8sjti7evdqHAtJYZ/3Xe7Pb0yypDp6kaHsGDTlT+c8J9wPu+L/hr/nLcd0ffr4p+w6x1cErGwZOphaxHXGD3eO9TK/g9ccXAauEoOL2ZHHb7exOcmp9dqhFIJhib6WrUjlalzPQDOxqrM8ZoyPfJEllnE2re7/007jUtBq7WxtksdIVS/Gq08JHjmkbJZyno/zvGAtCoDm01ZHYekc/VYVrd4W/NDt6Yhe1WaENAf39huVN58VxhCJT6V3UrpbblIDivQCvlRXfc+fp8/KBCXfKJ0UwRnQ9Yl5i3+6PckZJVtavlKHLcR6FT49GdUKPDFGgbR+iAuwUv9/At8igGEGavz3qKJv/hlq71SoZvePykiYh/sxpJy4O+uojhS5v33nh5NtI3VC4LpgttXd5tvwjfrZoMIQ+E94GP5AUcnLPjZjFN9ocWtnTk6Dq1hF+7IsfuqKYLP7gS4oMKsQOfoGKCOYq6Tybq0qh9dkNdyTPLsIK6WVbgWeRuDwb7QqCv6Gp9Bm21Yh9Z4PWPoH64GU+0BWmP1XrESE7qLefnU+UhGgW7yfTrIK5F89JMjY9oDpWTh+lxlrT0q8h2qrJzUx5eE08i9QR3BUBqf/kPWtvSdIFlyTPIk/ju240tT/fxDqV63ND/s92MRUn6jds6q3MjpgjIdua6wBiAnRlEKTrP2u81ZZ2WUX5KeWHP0rw6ppzJmhWTPNvC5VAmLtvhCI5JmdbC1jInv3t3EZh0XCGsZt0jLx4v7cEeAAssagquF7y1utdrzBApWYtQDZtDYoS3RpjO+WOuzfKbUwqUD4mi42TBxvgf9eKwHsFBlq/9ynqU3IQS0gnbG6bKG9ABh72nNNrCHt5La00u75zkKCjJjhpGl+JTMdjNbYfzEgGfM3wFLkUrVxiCd8yneTfjZHj9A9pqsib4PTnhIZ6LCvWQvaxeJPWcyBP75oa5DhHom3JSxFOfbCrpVD8ixyMOcN/lqQ8Fgp+Bxc4jtK//LC7FGTKWaj+pPdgW3EBXQqdEIxkZO4auDm1iPpXXds7QFzjpKEbyu2T90SyEgt9d7LhS/+2CwrgsdY3s87kKq2/TpS7csSgV7qBhLUBOuK7ZLt7DmMjbzj2dwLxnbekjiBiJU8sQt5DTGqZEE/VQPmrUkKLPzVhNl3nvUZfZv6HKfPbPaJ43Oq+yIq1FU6ENZlkQq+li5mdK4kIa/p2TnbIBSDiEXoZAfEiArrPSOBrJOv7NX8+NbaRSB1uhulAIpJn/6EqVU/fYSl00CidVOOrxN2oeaeo3RCmv+tebJeq0+JpvG+FNX9Tgt1/X/ex///dQm1H6v9RM+Z4mb9VzKCHdo1zRiZwmoeAh59PdmbajcJV/lOt4LI2w8sLtWYSC3iOnOK5hSZSBbF1Bt7zXWngnrbCZpQ83+v7YprQkCL03YLJDloqD6nm7K3706YcV8u+193ggc30tnQOP7NQDoY4EOTy0P1S4prkZMn0tV2lFlpWEZ/aZX5yerQ2/kSeQ4WMXbKDmXJAxbVvD9fAGvGkxCJb7WSYImkUEcgGKX6XAeEJEAikHg+Y1Mh+pd+1sL+4y1O2PwpE0WSV7DFOG3kKiR34MQkWXL+9fC8WoHHaQJqrK/HPg9Y72vSHphW3TjISQCTHoyipoikz2ysNpjgw5jxcTIO/sHxipKXlU9tkQnCJvopaneFdKos6IJr1nmoAvouYQqDomP/CT0Ib0fSUGID3EqlGhvMRUxv0r5whO2BGJNMrXsg+fi5q4ZnWvLhEPvfsI/Dygj+PtmCHk/xZrsimIpImZmqtGzXgjzQrXujrnyFawbCmF+PhAWcyX7/CPuXT0E7MWGVKA3wBIJ3Y83MbhE8dYoJEXxszaqU80E9Y+02CaZWQM/eqYq5glGeebmt53tV1E6ql7PkyVW4gKqDW6d3pvf38R6azQnelxE21SnTJueUEGh/ke/r/mdi1sg7OG+m95+5Vyb+WUSsSTzNIa3JNX5Ag0slhe0HaX1Dh+QxT2D8wm1XH2eaj1DeJ3Zw+zpr2yqi7dhDMMGHt8LPbEkAVtlxIvIH797999xUCiBU/FDuOg80fHPEuki6PfuE0rG2gigZ+NGqGIX8EtkCD5yBC31pTH8jlCVnoD2OcZ7w7CjdbzTg5roEPzaJ60QO03d/g/V3eAoTySeufHglsRRXVh+G8NiN6HEcyu+FkijRkqIEo/MQJ3y7UmQPysccYGk5JNebheOS5Kb/eQ6inH5rceVWsPndyYMDvLI2Aq4iRl/RCMXbxNFONYSxQha79TAQPog4uoRpipmKufaXFAxtZE/HTUyal8FbwqCI1R2tNGstmAi/mHUNJwqxuj5zQQZ0jMv+zSZYUWA2+SpjP/8TmMzPrC4Vv013yikqUAAcIsiBI7TlGzfByTrR/OT/BH/LlQSmLFrb8JA1/uLKhnzXy0syogE8Mh3POenLq+V+9hZkfIRNAd4osuJoBYPfQ3xMoz1jg0W8uMEzP+Ls6TBkU4ywoDkp5jfJ0T2wS6XH25exo9+qV/ZEPFoAlAThU8LbUkJaImsx8yuvNJ9Au+Vfjq3DfjGBNCwref5Emm2OM/YId29TSU5aHK9ElUX+d3tPrUm6BkT34s48rIJvvbLIB9+Qsw3BRhHIItBtK65TXO7MIkEqSGJ959YWAppFN1IblKcHyJin2YZA7KzP4vgb8lFokck50GQYdAfGNeC3rGPrwgYMcOQ0zB5slpjgUcoQXoPfe8vI4RhxI0ir8zNF6lM9JTWAwrTeTT/PGUDB4ZvgZuCwiAmmr9500tCenUaYTtNu3Ji4we+SkO5GXNSUIYKggThtM/ifdaxwkIGqFOvQIAKfvus3gI8ToY1QOjJul+MTw3/qYKj0DS0ezPjvK5wPyScLXaySIhync28klhkhgMxgRLQK86U0t13dLc34wdT+sBRl+2ekeRiUc0s5cI/eAAPVvVROExT+2PtdJIMBCIeTDKcY39o77olePgyyw1I0AAAA" width="256" height="256" alt="">
+  <img class="m-happy" src="data:image/webp;base64,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" width="256" height="256" alt="">
+  <img class="m-sad" src="data:image/webp;base64,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" width="256" height="256" alt="">
+</div>`}
+const ICON={
+ star:'<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5L2.6 9.3l6.5-.9z"/></svg>',
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ bolt:'<svg viewBox="0 0 24 24"><path fill="#fff" d="M13.5 2L4 14h7l-1.5 8L20 10h-7z"/></svg>',
+ book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>',
+ okBig:'<svg viewBox="0 0 24 24" fill="none" stroke="#58A700" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ noBig:'<svg viewBox="0 0 24 24" fill="none" stroke="#EA2B2B" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ heart:'<svg viewBox="0 0 24 24"><path fill="#FF4B4B" d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.7 12 21 12 21z"/><ellipse cx="8" cy="9" rx="1.8" ry="1.2" fill="#fff" opacity=".6"/></svg>',
+ heartGray:'<svg viewBox="0 0 24 24"><path fill="#E5E5E5" d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.7 12 21 12 21z"/></svg>',
+ inf:'<svg viewBox="0 0 24 24" fill="none" stroke="#1CB0F6" stroke-width="3" stroke-linecap="round"><path d="M7 8.5c-2 0-3.5 1.6-3.5 3.5S5 15.5 7 15.5c3.5 0 6.5-7 10-7 2 0 3.5 1.6 3.5 3.5S19 15.5 17 15.5c-3.5 0-6.5-7-10-7z"/></svg>',
+ fire:'<svg viewBox="0 0 24 24"><path fill="#FF9600" d="M12 2c1 3.5 5.5 5.6 5.5 11a5.5 5.5 0 0 1-11 0c0-2.4 1-4 2.2-5.2.2 1.6.9 2.7 2 3.2C10 8.4 10.6 4.6 12 2z"/><path fill="#FFC800" d="M12 12.5c.6 1.6 2.5 2.4 2.5 4.6a2.5 2.5 0 0 1-5 0c0-1.5.9-2.4 1.5-3 .2.7.5 1.1 1 1.2 0-1-.2-1.9 0-2.8z"/></svg>',
+ bolt2:'<svg viewBox="0 0 24 24"><path fill="#FFC800" d="M13.5 2L4 14h7l-1.5 8L20 10h-7z"/></svg>',
+ target:'<svg viewBox="0 0 24 24" fill="none" stroke="#58CC02" stroke-width="3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="#58CC02"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" fill="none" stroke="#1CB0F6" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ soundOn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11"/></svg>',
+ soundOff:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>',
+};
+function putMascots(root=document){root.querySelectorAll('[data-mascot]').forEach(el=>{el.innerHTML=mascotMarkup();const m=el.querySelector('.mascot');m.classList.add(el.dataset.mascot||'idle');el.removeAttribute('data-mascot')})}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const $=s=>document.querySelector(s);
+
+/* ============================================================
+   HOME
+   ============================================================ */
+const OFFS=[0,-70,-100,-70,0,70,100,70];
+function renderStatic(){
+  document.title=CONFIG.pageTitle; $('#cTag').textContent=CONFIG.courseTag; $('#cMod').textContent=CONFIG.moduleLabel;
+  $('#hTitle').textContent=CONFIG.title; $('#hBlurb').textContent=CONFIG.blurb; $('#bossTitle').textContent=CONFIG.bossTitle;
+  const hs=$('#hScore'); if(CONFIG.realScore!=null) hs.textContent=`Real quiz: ${CONFIG.realScore}/${RT}`; else hs.remove();
+}
+function renderHome(){
+  $('#sStreak').textContent=S.streak; $('#sXP').textContent=S.xp;
+  $('#soundBtn').innerHTML=S.sound?ICON.soundOn:ICON.soundOff;
+  const doneCount=ALL_LESSONS.filter(l=>S.done[l.id]!=null).length;
+  $('#lessonsDone').textContent=`${doneCount}/${ALL_LESSONS.length} lessons`;
+  const nextId=(ALL_LESSONS.find(l=>S.done[l.id]==null)||{}).id;
+  let k=0;
+  $('#units').innerHTML=UNITS.map(u=>`
+    <section class="unit">
+      <div class="unit-banner" style="background:${u.color}">
+        <div><div class="u-label">Unit ${u.n}</div><div class="u-title">${u.title}</div><div style="font-size:14px;opacity:.9;margin-top:2px">${u.sub}</div></div>
+        <button class="guide-btn" style="background:${u.shade}" data-guide="${u.n}">${ICON.book}<span>Guide</span></button>
+      </div>
+      <div class="path">${u.lessons.map(l=>{const off=OFFS[k++%OFFS.length];const done=S.done[l.id]!=null;const cur=l.id===nextId;
+        return `<div class="node-wrap" style="transform:translateX(${off}px)">
+          ${cur?`<div class="start-bubble" style="color:${u.color}">Start</div>`:''}
+          <button class="node ${done?'done':''}" data-lesson="${l.id}" style="background:${u.color};box-shadow:0 7px 0 ${u.shade}">
+            ${cur?'<span class="ring"></span>':''}${done?ICON.check:(u.hard?ICON.bolt:ICON.star)}</button>
+          <div class="node-label">${l.title}${done?`<br><span style="color:var(--gold-d)">Best ${S.done[l.id]}%</span>`:''}</div>
+        </div>`}).join('')}</div>
+    </section>`).join('');
+  const realTxt = CONFIG.realScore!=null ? ` Beat your ${CONFIG.realScore}/${RT}.` : '';
+  $('#bossSub').textContent = (S.bestBoss!=null ? `Best: ${S.bestBoss}/${REAL_IDS.length}. ` : '') + `All ${REAL_IDS.length} ${CONFIG.bossNoun||'questions'}, shuffled. No re-tries.` + realTxt;
+  const fab=$('#fab');
+  if(S.mistakes.length){fab.classList.remove('hidden');$('#fabBtn').textContent=`Practice mistakes (${S.mistakes.length})`}else fab.classList.add('hidden');
+  putMascots();
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-guide]'); if(g){openGuide(+g.dataset.guide);return}
+  const n=e.target.closest('[data-lesson]');
+  document.querySelectorAll('.popover').forEach(p=>p.remove());
+  document.querySelectorAll('.node-wrap.open').forEach(w=>w.classList.remove('open'));
+  if(n){
+    sfx.tap();
+    const l=ALL_LESSONS.find(x=>x.id===n.dataset.lesson);
+    const pop=document.createElement('div');pop.className='popover';pop.style.background=l.unit.color;pop.style.color=l.unit.color;
+    const xp=l.items.length*10;
+    pop.innerHTML=`<h3 style="color:#fff">${l.title}</h3><p style="color:#fff">${l.items.length} exercises · up to +${xp+20} XP</p><button class="btn">${S.done[l.id]!=null?'Practice again':'Start'}</button>`;
+    pop.querySelector('.btn').onclick=ev=>{ev.stopPropagation();startLesson({mode:'lesson',lesson:l,items:l.items})};
+    n.parentElement.appendChild(pop);n.parentElement.classList.add('open');
+    const r=pop.getBoundingClientRect(); if(r.bottom>innerHeight-90) scrollBy({top:r.bottom-innerHeight+110,behavior:'smooth'});
+  }
+});
+$('#soundBtn').onclick=()=>{S.sound=!S.sound;save();renderHome();sfx.tap()};
+$('#bossBtn').onclick=()=>startLesson({mode:'exam',title:'Final Boss',items:shuffle(REAL_IDS)});
+$('#fabBtn').onclick=()=>startLesson({mode:'mistakes',title:'Mistakes',items:shuffle(S.mistakes)});
+
+function openGuide(n){
+  const u=UNITS.find(x=>x.n===n);
+  const ov=$('#overlay');
+  ov.innerHTML=`<div class="modal-bg"><div class="modal">
+    <div class="pill" style="background:${u.color};color:#fff">Unit ${u.n} guidebook</div>
+    <h2 style="margin-top:10px">${u.title}</h2><div class="msub">${u.sub}</div>
+    ${u.guide.map(([t,d])=>`<div class="gb-item"><div class="gb-term" style="color:${u.shade}">${t}</div><div class="gb-def">${d}</div></div>`).join('')}
+    <div class="tip">${u.tip}</div>
+    <button class="btn wide" id="gClose">Got it</button></div></div>`;
+  const close=()=>ov.innerHTML='';
+  ov.querySelector('#gClose').onclick=close;
+  ov.querySelector('.modal-bg').onclick=e=>{if(e.target.classList.contains('modal-bg'))close()};
+}
+
+/* ============================================================
+   LESSON ENGINE
+   ============================================================ */
+let L=null;
+function startLesson(cfg){
+  document.querySelectorAll('.popover').forEach(p=>p.remove());
+  L={...cfg,queue:cfg.items.slice(),unique:cfg.items.length,graded:cfg.items.filter(i=>ITEMS[i].type!=='learn').length,cleared:0,first:{},hearts:cfg.mode==='exam'?Infinity:5,
+     combo:0,maxCombo:0,xp:0,t0:Date.now(),state:'idle',cur:null,examRight:0,examWrong:[]};
+  $('#lesson').classList.remove('hidden');document.body.style.overflow='hidden';
+  next();
+}
+function updateHead(){
+  $('#barFill').style.width=Math.max(4,(L.cleared/L.unique)*100)+'%';
+  const h=$('#lHearts');
+  if(L.hearts===Infinity){h.className='l-hearts inf';h.innerHTML=ICON.inf}
+  else{h.className='l-hearts';h.innerHTML=(L.hearts>0?ICON.heart:ICON.heartGray)+`<span>${L.hearts}</span>`}
+}
+function next(){
+  if(!L.queue.length){return finish()}
+  const id=L.queue.shift(); const it=ITEMS[id];
+  L.cur={id,it,sel:new Set(),order:null};
+  L.state='idle'; updateHead();
+  const foot=$('#foot');foot.className='l-foot';$('#fb').innerHTML='';
+  const btn=$('#mainBtn');btn.textContent='Check';btn.disabled=true;btn.className='btn';btn.classList.toggle('hidden',it.type==='match');
+  const retry = L.first[id]===false;
+  const comboHTML = L.combo>=2?`<div class="combo pop">${ICON.fire}${L.combo} in a row</div>`:`<div class="combo"></div>`;
+  const tags = `<div class="q-tag">
+      ${retry?'<span class="pill red">Fix this mistake</span>':''}
+      ${it.missed?'<span class="pill red">Missed on real quiz</span>':''}
+      ${(it.src&&CONFIG.srcPill)?`<span class="pill blue">${CONFIG.srcPill}${it.src}</span>`:(id.startsWith('h')?'<span class="pill gold">Bonus · Hard</span>':'')}
+    </div>`;
+  const qa=$('#qArea');
+  if(it.type==='learn'){
+    L.state='learn'; btn.textContent='Got it'; btn.disabled=false; btn.classList.remove('hidden');
+    qa.innerHTML=`<div class="combo"></div><div class="q-tag"><span class="pill green">New concept</span></div>
+      <div class="speaker"><div class="mascot-wrap" data-mascot="idle"></div><div class="bubble">${it.say||"Here's something new. Read it, then I'll quiz you!"}</div></div>
+      <div class="learn"><h2>${it.title}</h2><div class="body">${it.body}</div>${it.ex?`<div class="ex">${it.ex}</div>`:''}</div>`;
+    putMascots(qa); $('.l-body').scrollTop=0; return;
+  }
+  if(it.type==='match'){
+    const left=shuffle(it.pairs.map((p,i)=>({i,t:p[0]}))), right=shuffle(it.pairs.map((p,i)=>({i,t:p[1]})));
+    L.cur.match={pick:null,left:0,mistakes:0,found:0};
+    qa.innerHTML=`${comboHTML}${tags}<div class="q-title">${it.prompt}</div>
+      <div class="match"><div class="col">${left.map(x=>`<button class="tile term" data-side="L" data-i="${x.i}">${x.t}</button>`).join('')}</div>
+      <div class="col">${right.map(x=>`<button class="tile" data-side="R" data-i="${x.i}">${x.t}</button>`).join('')}</div></div>`;
+    qa.querySelectorAll('.tile').forEach(t=>t.onclick=()=>matchTap(t));
+  }else{
+    const order=shuffle(it.choices.map((_,i)=>i)); L.cur.order=order;
+    const label = it.type==='multi'?`Select ${it.need} answers`:'Select the correct answer';
+    qa.innerHTML=`${comboHTML}${tags}<div class="q-type">${label}</div>
+      <div class="speaker"><div class="mascot-wrap" data-mascot="idle"></div><div class="bubble">${it.prompt}</div></div>
+      <div class="choices">${order.map((oi,k)=>`<button class="choice ${it.type==='multi'?'multi':''}" data-k="${k}"><span class="key">${k+1}</span><span>${it.choices[oi]}</span></button>`).join('')}</div>`;
+    qa.querySelectorAll('.choice').forEach(c=>c.onclick=()=>pick(+c.dataset.k));
+    putMascots(qa);
+  }
+  $('.l-body').scrollTop=0;
+}
+function pick(k){
+  if(L.state!=='idle')return; sfx.tap();
+  const it=L.cur.it, sel=L.cur.sel;
+  if(it.type==='multi'){sel.has(k)?sel.delete(k):sel.add(k)}else{sel.clear();sel.add(k)}
+  document.querySelectorAll('.choice').forEach(c=>c.classList.toggle('sel',sel.has(+c.dataset.k)));
+  $('#mainBtn').disabled = it.type==='multi'? sel.size!==it.need : sel.size===0;
+}
+function check(){
+  const {it,sel,order,id}=L.cur;
+  const picked=[...sel].map(k=>order[k]).sort();
+  const right=it.ans.slice().sort();
+  const ok=picked.length===right.length&&picked.every((v,i)=>v===right[i]);
+  document.querySelectorAll('.choice').forEach(c=>{
+    const oi=order[+c.dataset.k];c.disabled=true;c.classList.remove('sel');
+    if(it.ans.includes(oi)) c.classList.add('right');
+    else if(sel.has(+c.dataset.k)){c.classList.add('wrong','shake')}
+  });
+  const ansHTML=it.ans.map(i=>it.choices[i]).join('<br>');
+  resolve(ok,ansHTML);
+}
+function resolve(ok,ansHTML){
+  const {id,it}=L.cur;
+  const firstTry = L.first[id]===undefined;
+  if(firstTry) L.first[id]=ok;
+  L.state='feedback';
+  const m=document.querySelector('#qArea .mascot'); if(m){m.classList.remove('idle');m.classList.add(ok?'happy':'sad')}
+  if(ok){
+    sfx.ok(); L.combo++; L.maxCombo=Math.max(L.maxCombo,L.combo); L.cleared++;
+    L.xp += firstTry?10:5;
+    if(L.mode==='exam') L.examRight++;
+    if(it.type!=='match' && S.mistakes.includes(id) && (L.mode==='mistakes' || firstTry)) S.mistakes=S.mistakes.filter(x=>x!==id);
+  }else{
+    sfx.no(); L.combo=0;
+    if(it.type!=='match' && !S.mistakes.includes(id)) S.mistakes.push(id);
+    if(L.mode==='exam'){L.cleared++;L.examWrong.push(id)}
+    else { L.queue.push(id); if(L.hearts!==Infinity) L.hearts--; }
+  }
+  save(); updateHead();
+  const titles = ok? ['Nicely done!','Correct!','Great job!','You got it!','Amazing!'] : ['Not quite','Incorrect','So close'];
+  const title = titles[Math.random()*titles.length|0];
+  $('#foot').className='l-foot '+(ok?'ok':'no');
+  $('#fb').innerHTML=`<div class="fb-icon">${ok?ICON.okBig:ICON.noBig}</div><div>
+     <h3>${title}</h3>${(!ok&&ansHTML)?`<div class="ans">Correct answer:<br>${ansHTML}</div>`:''}<div class="why">${it.why}</div></div>`;
+  const btn=$('#mainBtn'); btn.classList.remove('hidden'); btn.disabled=false; btn.textContent= ok?'Continue':'Got it';
+  btn.focus({preventScroll:true});
+}
+function matchTap(t){
+  if(L.state!=='idle'||t.classList.contains('gone'))return;
+  sfx.tap();
+  const M=L.cur.match, side=t.dataset.side;
+  if(!M.pick || M.pick.dataset.side===side){
+    document.querySelectorAll('.tile.sel').forEach(x=>x.classList.remove('sel'));
+    t.classList.add('sel'); M.pick=t; return;
+  }
+  const a=M.pick,b=t; M.pick=null; a.classList.remove('sel');
+  if(a.dataset.i===b.dataset.i){
+    [a,b].forEach(x=>{x.classList.add('ok');x.disabled=true});
+    tone([[660+M.found*90,.1,'sine',.08]]);
+    setTimeout(()=>[a,b].forEach(x=>{x.classList.remove('ok');x.classList.add('gone')}),450);
+    M.found++;
+    if(M.found===L.cur.it.pairs.length) setTimeout(()=>{
+      const clean=M.mistakes===0;
+      L.first[L.cur.id]=clean; // accuracy credit only if flawless
+      resolveMatch(clean);
+    },500);
+  }else{
+    M.mistakes++; [a,b].forEach(x=>x.classList.add('bad')); sfx.no();
+    setTimeout(()=>[a,b].forEach(x=>x.classList.remove('bad')),450);
+  }
+}
+function resolveMatch(clean){
+  // match never costs hearts or re-queues; counts as cleared
+  const {id,it}=L.cur;
+  L.state='feedback'; L.cleared++; L.xp+=clean?10:5;
+  if(clean){L.combo++;L.maxCombo=Math.max(L.maxCombo,L.combo)}else L.combo=0;
+  sfx.ok(); updateHead();
+  $('#foot').className='l-foot ok';
+  $('#fb').innerHTML=`<div class="fb-icon">${ICON.okBig}</div><div><h3>${clean?'Flawless match!':'All matched!'}</h3>
+    ${clean?'':`<div class="ans">${L.cur.match.mistakes} wrong tap${L.cur.match.mistakes>1?'s':''} along the way</div>`}<div class="why">${it.why}</div></div>`;
+  const btn=$('#mainBtn'); btn.classList.remove('hidden'); btn.disabled=false; btn.textContent='Continue';
+}
+$('#mainBtn').onclick=()=>{
+  if(L.state==='learn'){ sfx.tap(); L.cleared++; updateHead(); next(); return; }
+  if(L.state==='idle'){ if(!$('#mainBtn').disabled) check(); }
+  else if(L.state==='feedback'){
+    if(L.hearts!==Infinity && L.hearts<=0) return outOfHearts();
+    next();
+  }
+};
+document.addEventListener('keydown',e=>{
+  if(!L||$('#lesson').classList.contains('hidden')||$('#overlay').innerHTML)return;
+  if(e.key==='Enter'){e.preventDefault();$('#mainBtn').click();return}
+  const n=parseInt(e.key,10);
+  if(n>=1&&n<=9&&L.state==='idle'&&L.cur.it.choices&&n<=L.cur.it.choices.length) pick(n-1);
+});
+$('#quitBtn').onclick=()=>{
+  const ov=$('#overlay');
+  ov.innerHTML=`<div class="modal-bg"><div class="modal" style="text-align:center">
+    <div style="width:110px;margin:0 auto 8px" data-mascot="sad"></div>
+    <h2>Wait, don't go!</h2><div class="msub">You'll lose your progress in this lesson.</div>
+    <button class="btn blue wide" id="stay">Keep learning</button>
+    <button class="btn ghost gray wide" id="leave" style="margin-top:12px">End session</button></div></div>`;
+  putMascots(ov);
+  ov.querySelector('#stay').onclick=()=>ov.innerHTML='';
+  ov.querySelector('#leave').onclick=()=>{ov.innerHTML='';exitLesson()};
+};
+function outOfHearts(){
+  const ov=$('#overlay');
+  ov.innerHTML=`<div class="modal-bg"><div class="modal" style="text-align:center">
+    <div style="width:110px;margin:0 auto 8px" data-mascot="sad"></div>
+    <h2>You ran out of hearts!</h2><div class="msub">Read the guidebook, or refill and keep grinding. Refills cut this lesson's XP in half.</div>
+    <button class="btn red wide" id="refill">${ICON.heart.replace('#FF4B4B','#fff')} Refill hearts</button>
+    <button class="btn ghost gray wide" id="giveup" style="margin-top:12px">Quit lesson</button></div></div>`;
+  putMascots(ov);
+  ov.querySelector('#refill').onclick=()=>{ov.innerHTML='';L.hearts=5;L.refilled=true;updateHead();next()};
+  ov.querySelector('#giveup').onclick=()=>{ov.innerHTML='';exitLesson()};
+}
+function exitLesson(){$('#lesson').classList.add('hidden');document.body.style.overflow='';L=null;renderHome()}
+
+function finish(){
+  const secs=Math.round((Date.now()-L.t0)/1000), mm=Math.floor(secs/60), ss=String(secs%60).padStart(2,'0');
+  const firstOk=Object.values(L.first).filter(v=>v===true).length;
+  const acc=L.graded?Math.round(firstOk/L.graded*100):100;
+  let xp=L.xp; const perfect=acc===100;
+  if(perfect && L.mode!=='exam') xp+=20;
+  if(L.refilled) xp=Math.round(xp/2);
+  S.xp+=xp; bumpStreak();
+  if(L.mode==='lesson') S.done[L.lesson.id]=Math.max(S.done[L.lesson.id]||0,acc);
+  if(L.mode==='exam') S.bestBoss=Math.max(S.bestBoss||0,L.examRight);
+  save(); sfx.win();
+  const isExam=L.mode==='exam';
+  const N=REAL_IDS.length, R=CONFIG.realScore;
+  const head = isExam ? (L.examRight===N?`Perfect ${N}/${N}!`:(R!=null&&L.examRight>R)?`New record! You beat ${R}/${RT}!`:(R!=null&&L.examRight===R)?'Matched your real score!':'Boss defeated... kinda')
+              : perfect?'Perfect lesson!':'Lesson complete!';
+  const sub = isExam ? `You scored <b>${L.examRight}/${N}</b>.`+(R!=null?` Real quiz: ${R}/${RT}.`:'') : (perfect?'Zero mistakes. Bonus +20 XP.':`Max combo: ${L.maxCombo} in a row.`);
+  const ov=$('#overlay');
+  ov.innerHTML=`<div class="screen" id="win">
+    <div class="mascot-wrap" data-mascot="happy"></div>
+    <h2>${head}</h2><div class="sub">${sub}</div>
+    <div class="cards">
+      <div class="scard gold"><div class="t">Total XP</div><div class="v">${ICON.bolt2}${xp}</div></div>
+      <div class="scard green"><div class="t">${isExam?'Score':'Accuracy'}</div><div class="v">${ICON.target}${isExam?L.examRight+'/'+N:acc+'%'}</div></div>
+      <div class="scard blue"><div class="t">Time</div><div class="v">${ICON.clock}${mm}:${ss}</div></div>
+      <div class="scard orange"><div class="t">Streak</div><div class="v">${ICON.fire}${S.streak}</div></div>
+    </div>
+    ${isExam&&L.examWrong.length?`<div class="review-list">${L.examWrong.map(id=>{const it=ITEMS[id];return `<div class="ri">Q${it.src}: ${it.prompt}<br><span>✓ ${it.ans.map(i=>it.choices[i]).join(', ')}</span></div>`}).join('')}</div>`:''}
+    <div class="actions"><button class="btn wide" id="cont">Continue</button>
+    ${S.mistakes.length?`<button class="btn ghost wide" id="pm">Practice mistakes (${S.mistakes.length})</button>`:''}</div>
+  </div>`;
+  putMascots(ov);
+  const win=ov.querySelector('#win');
+  const cols=['#58CC02','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600'];
+  for(let i=0;i<70;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.background=cols[i%cols.length];
+    c.style.animationDuration=(2+Math.random()*2.5)+'s';c.style.animationDelay=(Math.random()*.6)+'s';win.appendChild(c)}
+  ov.querySelector('#cont').onclick=()=>{ov.innerHTML='';exitLesson()};
+  const pm=ov.querySelector('#pm'); if(pm) pm.onclick=()=>{ov.innerHTML='';exitLesson();startLesson({mode:'mistakes',items:shuffle(S.mistakes)})};
+}
+
+renderStatic();
+renderHome();
+</script>
+</body>
+</html>
